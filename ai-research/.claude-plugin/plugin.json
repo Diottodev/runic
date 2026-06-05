@@ -1,0 +1,16 @@
+{
+  "name": "ai-research",
+  "description": "AI model evaluation and research skills: benchmark analysis, custom eval framework design",
+  "version": "1.0.0",
+  "author": {
+    "name": "Diottodev",
+    "url": "https://github.com/Diottodev/idiottoskills"
+  },
+  "homepage": "https://github.com/Diottodev/idiottoskills/tree/main/ai-research",
+  "repository": "https://github.com/Diottodev/idiottoskills",
+  "license": "MIT",
+  "skills": [
+    "./benchmark-analyzer",
+    "./model-eval"
+  ]
+}

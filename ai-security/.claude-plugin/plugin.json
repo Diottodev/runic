@@ -1,0 +1,15 @@
+{
+  "name": "ai-security",
+  "description": "AI-specific security skills: prompt injection detection, system prompt hardening, adversarial input handling",
+  "version": "1.0.0",
+  "author": {
+    "name": "Diottodev",
+    "url": "https://github.com/Diottodev/idiottoskills"
+  },
+  "homepage": "https://github.com/Diottodev/idiottoskills/tree/main/ai-security",
+  "repository": "https://github.com/Diottodev/idiottoskills",
+  "license": "MIT",
+  "skills": [
+    "./prompt-injection"
+  ]
+}

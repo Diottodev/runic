@@ -1,0 +1,24 @@
+{
+  "name": "engineering",
+  "description": "Core AI & dev engineering skills: code review, debugging, testing, refactoring, git commits, docs, LLM optimization, prompt engineering, agent design",
+  "version": "1.0.0",
+  "author": {
+    "name": "Diottodev",
+    "url": "https://github.com/Diottodev/idiottoskills"
+  },
+  "homepage": "https://github.com/Diottodev/idiottoskills/tree/main/engineering",
+  "repository": "https://github.com/Diottodev/idiottoskills",
+  "license": "MIT",
+  "skills": [
+    "./code-review",
+    "./debug-error",
+    "./explain-code",
+    "./generate-tests",
+    "./git-commit",
+    "./refactor",
+    "./write-docs",
+    "./llm-cost-optimizer",
+    "./prompt-engineering",
+    "./agent-designer"
+  ]
+}
