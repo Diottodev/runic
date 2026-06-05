@@ -1,0 +1,119 @@
+#!/usr/bin/env node
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
+import { readFileSync, readdirSync, statSync, existsSync } from 'fs'
+import { join, dirname } from 'path'
+import { fileURLToPath } from 'url'
+import { z } from 'zod'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const ROOT = join(__dirname, '..')
+
+const DOMAINS = [
+  'engineering',
+  'engineering-team',
+  'ai-research',
+  'ai-security',
+  'research',
+  'research-ops',
+]
+
+interface Skill {
+  name: string
+  description: string
+  content: string
+  domain: string
+}
+
+function parseFrontmatter(raw: string): { name?: string; description?: string; body: string } {
+  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/m)
+  if (!match) return { body: raw }
+  const meta: Record<string, string> = {}
+  for (const line of match[1].split('\n')) {
+    const colon = line.indexOf(':')
+    if (colon === -1) continue
+    const key = line.slice(0, colon).trim()
+    const val = line.slice(colon + 1).trim().replace(/^["']|["']$/g, '')
+    meta[key] = val
+  }
+  return { name: meta['name'], description: meta['description'], body: match[2].trim() }
+}
+
+function findSkillFiles(dir: string): string[] {
+  if (!existsSync(dir)) return []
+  const results: string[] = []
+  for (const entry of readdirSync(dir)) {
+    const full = join(dir, entry)
+    if (statSync(full).isDirectory()) {
+      const skill = join(full, 'SKILL.md')
+      if (existsSync(skill)) results.push(skill)
+      else results.push(...findSkillFiles(full))
+    }
+  }
+  return results
+}
+
+function loadSkills(): Skill[] {
+  const skills: Skill[] = []
+  const seen = new Set<string>()
+
+  for (const domain of DOMAINS) {
+    const domainDir = join(ROOT, domain)
+    for (const file of findSkillFiles(domainDir)) {
+      const raw = readFileSync(file, 'utf8')
+      const { name, description, body } = parseFrontmatter(raw)
+      if (!name || !description || !body || seen.has(name)) continue
+      seen.add(name)
+      skills.push({ name, description, content: body, domain })
+    }
+  }
+
+  return skills
+}
+
+async function main() {
+  const skills = loadSkills()
+  const server = new McpServer({
+    name: 'runic',
+    version: '1.0.0',
+  })
+
+  for (const skill of skills) {
+    server.tool(
+      skill.name,
+      skill.description,
+      { context: z.string().optional().describe('Additional context from the user') },
+      async ({ context }) => ({
+        content: [{
+          type: 'text' as const,
+          text: context
+            ? `${skill.content}\n\n---\nUser context: ${context}`
+            : skill.content,
+        }],
+      }),
+    )
+  }
+
+  // List all skills tool
+  server.tool(
+    'runic-list',
+    'List all available Runic skills with their names, domains, and descriptions.',
+    {},
+    async () => ({
+      content: [{
+        type: 'text' as const,
+        text: skills
+          .map(s => `**${s.name}** (${s.domain})\n${s.description}`)
+          .join('\n\n'),
+      }],
+    }),
+  )
+
+  const transport = new StdioServerTransport()
+  await server.connect(transport)
+}
+
+main().catch(err => {
+  process.stderr.write(`runic: ${err.message}\n`)
+  process.exit(1)
+})
