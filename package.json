@@ -19,7 +19,8 @@
     "dev": "tsx watch src/index.ts",
     "start": "node dist/index.js",
     "lint": "eslint src --ext .ts",
-    "test": "vitest run"
+    "test": "vitest run",
+    "icons": "node scripts/generate-icons.mjs"
   },
   "keywords": [
     "mcp",
@@ -62,6 +63,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.14.0",
+    "sharp": "^0.34.5",
     "shx": "^0.3.4",
     "tsx": "^4.15.0",
     "typescript": "^5.5.0",
