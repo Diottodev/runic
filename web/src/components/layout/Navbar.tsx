@@ -14,11 +14,9 @@ export function Navbar() {
         {/* Logo — /D typographic mark */}
         <a href="#" className="flex items-center gap-2.5 group" aria-label="runic home">
           {/* The /D icon box — wine dark theme */}
-          <div className="w-8 h-8 rounded-[6px] bg-[#0d0407] dark:bg-[#0d0407] border border-[#2a0c16] dark:border-[#2a0c16] flex items-center justify-center flex-shrink-0 group-hover:border-[#5a1828] dark:group-hover:border-[#5a1828] transition-colors duration-200 relative overflow-hidden"
-               style={{ boxShadow: 'inset 0 1px 0 rgba(200,57,90,0.08), 0 0 0 0.5px rgba(200,57,90,0.12)' }}>
-            {/* faint runic glow */}
-            <span className="absolute inset-0 rounded-[5px]" style={{ background: 'radial-gradient(circle at 40% 35%, rgba(200,57,90,0.18), transparent 70%)' }} />
-            <span className="font-mono font-semibold text-[#f0dde3] text-[13px] leading-none tracking-[-0.04em] select-none relative z-10">ᚱ</span>
+          <div className="w-8 h-8 rounded-[6px] overflow-hidden flex-shrink-0 group-hover:opacity-90 transition-opacity duration-200"
+               style={{ boxShadow: '0 0 0 1px rgba(200,57,90,0.18)' }}>
+            <img src="/favicon.svg" alt="Runic" className="w-full h-full object-cover" draggable={false} />
           </div>
         </a>
 
