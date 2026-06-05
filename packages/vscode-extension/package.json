@@ -1,8 +1,8 @@
 {
   "name": "runic-skills",
   "displayName": "Runic Skills",
-  "description": "91 AI & Dev skills for VS Code and Cursor — code review, debug, test, LLM cost, security and more.",
-  "version": "1.0.0",
+  "description": "156 AI & Dev skills via MCP — code review, debug, tests, refactor, docs, LLM cost, security, agents and more. Works in VS Code Copilot Chat (@runic) and Cursor.",
+  "version": "1.0.2",
   "publisher": "diottodev",
   "author": "Diottodev",
   "license": "MIT",
@@ -15,22 +15,64 @@
     "url": "https://github.com/Diottodev/runic/issues"
   },
   "engines": {
-    "vscode": "^1.85.0"
+    "vscode": "^1.90.0"
   },
-  "categories": ["AI", "Other"],
-  "keywords": ["ai", "skills", "mcp", "code-review", "debug", "llm", "runic"],
+  "categories": ["AI", "Machine Learning", "Testing", "Linters", "Other"],
+  "keywords": [
+    "ai", "skills", "mcp", "model-context-protocol",
+    "code-review", "debug", "refactor", "tests", "docs",
+    "llm", "copilot", "cursor", "runic", "agent", "prompt"
+  ],
   "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#0f0f0f",
+    "theme": "dark"
+  },
   "activationEvents": ["onStartupFinished"],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "runic.configure",
-        "title": "Runic: Configure MCP Server"
+        "title": "Runic: Configure MCP Server",
+        "category": "Runic"
       },
       {
         "command": "runic.listSkills",
-        "title": "Runic: List Available Skills"
+        "title": "Runic: List Available Skills",
+        "category": "Runic"
+      }
+    ],
+    "chatParticipants": [
+      {
+        "id": "runic.assistant",
+        "fullName": "Runic Skills",
+        "name": "runic",
+        "description": "156 AI & Dev skills — code review, debug, tests, refactor, docs, agents, security and more.",
+        "isSticky": false,
+        "commands": [
+          { "name": "code-review",          "description": "Review code for bugs, security issues, and quality" },
+          { "name": "debug-error",           "description": "Diagnose errors and stack traces, find root cause" },
+          { "name": "generate-tests",        "description": "Generate unit tests (Arrange/Act/Assert)" },
+          { "name": "refactor",              "description": "Refactor code — Clean Code, SOLID, DRY" },
+          { "name": "explain-code",          "description": "Explain what code does (beginner → expert depth)" },
+          { "name": "git-commit",            "description": "Generate a Conventional Commit message" },
+          { "name": "write-docs",            "description": "Generate JSDoc, TSDoc, or inline comments" },
+          { "name": "prompt-engineering",    "description": "Design and improve LLM prompts" },
+          { "name": "llm-cost-optimizer",    "description": "Analyze and reduce LLM inference costs" },
+          { "name": "agent-designer",        "description": "Design AI agent architectures" },
+          { "name": "security-guidance",     "description": "Security review — OWASP Top 10 and beyond" },
+          { "name": "a11y-audit",            "description": "Accessibility audit — WCAG 2.2 Level A/AA" },
+          { "name": "prompt-injection",      "description": "Detect and harden against prompt injection" },
+          { "name": "benchmark-analyzer",    "description": "Interpret and compare AI model benchmarks" },
+          { "name": "model-eval",            "description": "Design custom LLM evaluation frameworks" },
+          { "name": "data-quality-auditor",  "description": "Audit data pipelines and datasets for quality" },
+          { "name": "agenthub",              "description": "Multi-agent collaboration with parallel subagents" },
+          { "name": "autoresearch-agent",    "description": "Autonomous experiment loop for optimization" },
+          { "name": "handoff",               "description": "Generate handoff documents for team transitions" },
+          { "name": "write-a-skill",         "description": "Scaffold a new Runic skill" },
+          { "name": "runic-list",            "description": "List all available Runic skills with descriptions" }
+        ]
       }
     ],
     "configuration": {
@@ -52,7 +94,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
-    "@types/vscode": "^1.85.0",
+    "@types/vscode": "^1.90.0",
     "@vscode/vsce": "^3.0.0",
     "typescript": "^5.5.0"
   }
