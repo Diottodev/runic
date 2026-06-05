@@ -1,11 +1,12 @@
 {
-  "name": "runic",
+  "name": "@diottodev/runic",
   "version": "1.0.0",
   "description": "91 AI & Dev skills for Claude Code, Cursor, Windsurf, VS Code, and JetBrains — install via MCP or as a native IDE plugin.",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "runic": "./dist/index.js"
+    "runic": "./dist/index.js",
+    "@diottodev/runic": "./dist/index.js"
   },
   "files": [
     "dist",

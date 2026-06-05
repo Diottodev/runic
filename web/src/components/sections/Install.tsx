@@ -34,7 +34,7 @@ const mcpFilenames: Partial<Record<IDE, string>> = {
 
 const mcpCodes: Record<IDE, string> = {
   claude: `# Add via NPX (recommended)
-claude mcp add --npm runic
+claude mcp add --npm @diottodev/runic
 
 # Verify it's registered
 claude mcp list`,
@@ -42,7 +42,7 @@ claude mcp list`,
   "mcpServers": {
     "runic": {
       "command": "npx",
-      "args": ["-y", "runic"]
+      "args": ["-y", "@diottodev/runic"]
     }
   }
 }`,
@@ -50,7 +50,7 @@ claude mcp list`,
   "mcpServers": {
     "runic": {
       "command": "npx",
-      "args": ["-y", "runic"]
+      "args": ["-y", "@diottodev/runic"]
     }
   }
 }`,
@@ -59,7 +59,7 @@ claude mcp list`,
     "runic": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "runic"]
+      "args": ["-y", "@diottodev/runic"]
     }
   }
 }`,
@@ -67,7 +67,7 @@ claude mcp list`,
   "servers": {
     "runic": {
       "command": "npx",
-      "args": ["-y", "runic"]
+      "args": ["-y", "@diottodev/runic"]
     }
   }
 }`,
@@ -88,7 +88,7 @@ const pluginLabels: Record<PluginIDE, string> = {
 
 const pluginCodes: Record<PluginIDE, string> = {
   vscode: `# Install via CLI
-code --install-extension runic.skills
+code --install-extension diottodev.runic-skills
 
 # Or open VS Code → Extensions (Ctrl+Shift+X)
 # Search: "Runic Skills"
@@ -105,7 +105,7 @@ code --install-extension runic.skills
 #   Search: "Runic Skills"
 
 # Or via CLI:
-cursor --install-extension runic.skills`,
+cursor --install-extension diottodev.runic-skills`,
 }
 
 const quickStartExamples = [

@@ -4,7 +4,7 @@
 > Install in seconds via MCP or as a native IDE plugin.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![npm](https://img.shields.io/npm/v/runic)](https://www.npmjs.com/package/runic)
+[![npm](https://img.shields.io/npm/v/@diottodev/runic)](https://www.npmjs.com/package/@diottodev/runic)
 [![Skills](https://img.shields.io/badge/skills-91-0e7490)](.)
 [![Domains](https://img.shields.io/badge/domains-6-155e75)](.)
 [![GitHub](https://img.shields.io/badge/GitHub-Diottodev-161b22?logo=github)](https://github.com/Diottodev/runic)
@@ -24,7 +24,7 @@ MCP (Model Context Protocol) is a standard supported by all major AI-enabled IDE
 #### Claude Code
 
 ```bash
-claude mcp add --npm runic
+claude mcp add --npm @diottodev/runic
 ```
 
 #### Cursor
@@ -36,7 +36,7 @@ Add to `.cursor/mcp.json` (project) or `~/.cursor/mcp.json` (global):
   "mcpServers": {
     "runic": {
       "command": "npx",
-      "args": ["-y", "runic"]
+      "args": ["-y", "@diottodev/runic"]
     }
   }
 }
@@ -53,7 +53,7 @@ Add to `~/.codeium/windsurf/mcp_config.json`:
   "mcpServers": {
     "runic": {
       "command": "npx",
-      "args": ["-y", "runic"]
+      "args": ["-y", "@diottodev/runic"]
     }
   }
 }
@@ -71,7 +71,7 @@ Add to `.vscode/mcp.json`:
     "runic": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "runic"]
+      "args": ["-y", "@diottodev/runic"]
     }
   }
 }
@@ -88,7 +88,7 @@ Add to `~/.config/JetBrains/mcp.json`:
   "servers": {
     "runic": {
       "command": "npx",
-      "args": ["-y", "runic"]
+      "args": ["-y", "@diottodev/runic"]
     }
   }
 }
@@ -127,13 +127,13 @@ Open any JetBrains IDE (IntelliJ IDEA, WebStorm, PyCharm, GoLand...) →
 
 ### MCP distribution
 
-The `runic` npm package exposes a [Model Context Protocol](https://modelcontextprotocol.io) server. When the IDE starts a session, it spawns `npx runic` as a child process via stdio. The server registers all 91 skills as MCP tools — the IDE's AI can then invoke them by name or the IDE can trigger them proactively based on context.
+The `runic` npm package exposes a [Model Context Protocol](https://modelcontextprotocol.io) server. When the IDE starts a session, it spawns `npx @diottodev/runic` as a child process via stdio. The server registers all 91 skills as MCP tools — the IDE's AI can then invoke them by name or the IDE can trigger them proactively based on context.
 
 **To publish / update on npm:**
 
 ```bash
 npm run build
-npm publish --access public
+npm publish
 ```
 
 ### VS Code / Cursor plugin distribution
