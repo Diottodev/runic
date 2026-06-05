@@ -12,5 +12,5 @@
 
 ```bash
 # Claude Code
-claude mcp add idiottoskills-security node dist/index.js --env SKILL_DOMAIN=ai-security
+claude mcp add @diottodev/runic-security node dist/index.js --env SKILL_DOMAIN=ai-security
 ```

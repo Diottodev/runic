@@ -1,4 +1,4 @@
-# idiottoskills — AI & Dev Skills Library
+# @diottodev/runic — AI & Dev Skills Library
 
 > **v1.0.0** | MIT License | 13 skills · 3 domains
 
@@ -14,10 +14,10 @@
 
 ```bash
 # Claude Code
-claude mcp add idiottoskills node dist/index.js
+claude mcp add @diottodev/runic node dist/index.js
 
 # Cursor — add to .cursor/mcp.json
-{ "idiottoskills": { "command": "node", "args": ["dist/index.js"] } }
+{ "@diottodev/runic": { "command": "node", "args": ["dist/index.js"] } }
 ```
 
 ## Roadmap

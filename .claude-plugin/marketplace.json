@@ -1,9 +1,9 @@
 {
-  "name": "idiottoskills",
+  "name": "@diottodev/runic",
   "version": "1.0.0",
   "description": "AI & Dev skills library for Claude Code, Cursor, and other AI-powered IDEs",
-  "homepage": "https://github.com/Diottodev/idiottoskills",
-  "repository": "https://github.com/Diottodev/idiottoskills",
+  "homepage": "https://github.com/Diottodev/@diottodev/runic",
+  "repository": "https://github.com/Diottodev/@diottodev/runic",
   "license": "MIT",
   "domains": [
     {

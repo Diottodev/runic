@@ -4,10 +4,10 @@
   "version": "1.0.0",
   "author": {
     "name": "Diottodev",
-    "url": "https://github.com/Diottodev/idiottoskills"
+    "url": "https://github.com/Diottodev/@diottodev/runic"
   },
-  "homepage": "https://github.com/Diottodev/idiottoskills/tree/main/ai-security",
-  "repository": "https://github.com/Diottodev/idiottoskills",
+  "homepage": "https://github.com/Diottodev/@diottodev/runic/tree/main/ai-security",
+  "repository": "https://github.com/Diottodev/@diottodev/runic",
   "license": "MIT",
   "skills": [
     "./prompt-injection"

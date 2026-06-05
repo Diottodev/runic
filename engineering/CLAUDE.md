@@ -21,7 +21,7 @@
 
 ```bash
 # Claude Code
-claude mcp add idiottoskills-engineering node dist/index.js --env SKILL_DOMAIN=engineering
+claude mcp add @diottodev/runic-engineering node dist/index.js --env SKILL_DOMAIN=engineering
 
 # Cursor — .cursor/mcp.json
 { "engineering-skills": { "command": "node", "args": ["dist/index.js"] } }
