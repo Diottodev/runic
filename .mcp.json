@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "runic": {
+      "command": "npx",
+      "args": ["-y", "@diottodev/runic"]
+    }
+  }
+}
