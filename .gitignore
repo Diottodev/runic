@@ -19,6 +19,9 @@ Thumbs.db
 .vscode/settings.json
 .idea/
 
+# Claude Code — local settings (tokens, personal config)
+.claude/settings.local.json
+
 # Logs
 *.log
 npm-debug.log*
