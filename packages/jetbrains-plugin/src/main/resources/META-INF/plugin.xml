@@ -1,0 +1,33 @@
+<idea-plugin>
+    <id>dev.diotto.runic</id>
+    <name>Runic Skills</name>
+    <vendor url="https://github.com/Diottodev/runic">Diottodev</vendor>
+    <description><![CDATA[
+        <b>91 AI &amp; Dev skills</b> for JetBrains IDEs — code review, debugging, test generation,
+        LLM cost optimization, security, and more.<br/><br/>
+        Skills activate automatically via AI Assistant (MCP) or manually from the Tools menu.<br/><br/>
+        <a href="https://github.com/Diottodev/runic">GitHub</a> ·
+        <a href="https://www.npmjs.com/package/@diottodev/runic">npm</a>
+    ]]></description>
+    <change-notes>Initial release — 91 skills across 6 domains.</change-notes>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <notificationGroup id="Runic" displayType="BALLOON" />
+    </extensions>
+
+    <actions>
+        <group id="RunicMenu" text="Runic Skills" popup="true">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <action id="runic.ConfigureMcp"
+                    class="dev.diotto.runic.ConfigureMcpAction"
+                    text="Configure MCP Server"
+                    description="Add Runic to JetBrains AI Assistant MCP servers"/>
+            <action id="runic.ListSkills"
+                    class="dev.diotto.runic.ListSkillsAction"
+                    text="List Available Skills"
+                    description="Show all 91 Runic skills"/>
+        </group>
+    </actions>
+</idea-plugin>

@@ -1,0 +1,59 @@
+{
+  "name": "runic-skills",
+  "displayName": "Runic Skills",
+  "description": "91 AI & Dev skills for VS Code and Cursor — code review, debug, test, LLM cost, security and more.",
+  "version": "1.0.0",
+  "publisher": "diottodev",
+  "author": "Diottodev",
+  "license": "MIT",
+  "homepage": "https://github.com/Diottodev/runic",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Diottodev/runic.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Diottodev/runic/issues"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["AI", "Other"],
+  "keywords": ["ai", "skills", "mcp", "code-review", "debug", "llm", "runic"],
+  "icon": "icon.png",
+  "activationEvents": ["onStartupFinished"],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "runic.configure",
+        "title": "Runic: Configure MCP Server"
+      },
+      {
+        "command": "runic.listSkills",
+        "title": "Runic: List Available Skills"
+      }
+    ],
+    "configuration": {
+      "title": "Runic Skills",
+      "properties": {
+        "runic.autoConfigureMcp": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically configure Runic as an MCP server on activation."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "watch": "tsc -watch -p tsconfig.json",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.0.0",
+    "typescript": "^5.5.0"
+  }
+}
