@@ -1,0 +1,72 @@
+{
+  "name": "runic",
+  "version": "1.0.0",
+  "description": "91 AI & Dev skills for Claude Code, Cursor, Windsurf, VS Code, and JetBrains — install via MCP or as a native IDE plugin.",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "runic": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc && shx chmod +x dist/index.js",
+    "prepare": "npm run build",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "lint": "eslint src --ext .ts",
+    "test": "vitest run"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "runic",
+    "claude-code",
+    "cursor",
+    "windsurf",
+    "vscode",
+    "jetbrains",
+    "ide-plugin",
+    "vscode-extension",
+    "ai",
+    "ai-skills",
+    "code-review",
+    "developer-tools",
+    "llm",
+    "model-context-protocol",
+    "prompt-engineering",
+    "debug",
+    "test-generation",
+    "skills-library"
+  ],
+  "homepage": "https://github.com/Diottodev/runic",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Diottodev/runic.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Diottodev/runic/issues"
+  },
+  "author": "Diottodev",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "shx": "^0.3.4",
+    "tsx": "^4.15.0",
+    "typescript": "^5.5.0",
+    "vitest": "^1.6.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
