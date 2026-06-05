@@ -1,0 +1,38 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rtk ls:*)",
+      "Bash(npm install:*)",
+      "Bash(rtk read:*)",
+      "Bash(rtk npm:*)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.npmjs.com)",
+      "WebFetch(domain:cursor.directory)",
+      "WebFetch(domain:cursor.com)",
+      "Bash(grep -E \"^\\\\./?[^/]*$|\\\\.claude|\\\\.cursor|\\\\.codex\")",
+      "Bash(rtk find:*)",
+      "Bash(grep -v \"^\\\\.$\")",
+      "Bash(mv /c/Users/nicod/Desktop/PROJETOS/idiottoskills/claude-skills-main /c/Users/nicod/Desktop/PROJETOS/claude-skills-main)",
+      "Read(//c/Users/nicod/Desktop/PROJETOS/**)",
+      "Bash(cmd.exe:*)",
+      "Bash(echo \"exit:$?\")",
+      "Bash(powershell.exe:*)",
+      "Bash(curl -s http://localhost:5173)",
+      "Bash(node --input-type=module)",
+      "Bash(rtk npx:*)",
+      "Bash(taskkill /F /IM node.exe)",
+      "Bash(powershell:*)",
+      "Bash(dir C:\\\\Users\\\\nicod\\\\Desktop\\\\PROJETOS\\\\idiottoskills:*)",
+      "Bash(dir C:\\\\Users\\\\nicod\\\\Desktop\\\\PROJETOS\\\\idiottoskills\\\\web:*)",
+      "WebFetch(domain:www.awwwards.com)",
+      "Bash(rtk tsc:*)",
+      "Bash(xargs ls:*)",
+      "Bash(awk '{print $9, $5}')",
+      "Bash(xargs wc:*)",
+      "Bash(dir C:\\\\Users\\\\nicod\\\\Desktop\\\\PROJETOS\\\\runic:*)",
+      "Bash(dir \"C:\\\\Users\\\\nicod\\\\Desktop\\\\PROJETOS\\\\runic\\\\web\")",
+      "Bash(rtk git:*)"
+    ]
+  }
+}

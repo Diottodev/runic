@@ -1,0 +1,30 @@
+{
+  "name": "idiottoskills",
+  "version": "1.0.0",
+  "description": "AI & Dev skills library for Claude Code, Cursor, and other AI-powered IDEs",
+  "homepage": "https://github.com/Diottodev/idiottoskills",
+  "repository": "https://github.com/Diottodev/idiottoskills",
+  "license": "MIT",
+  "domains": [
+    {
+      "name": "engineering",
+      "description": "Core AI & engineering skills",
+      "path": "./engineering",
+      "skills": 10
+    },
+    {
+      "name": "ai-research",
+      "description": "AI model evaluation and research",
+      "path": "./ai-research",
+      "skills": 2
+    },
+    {
+      "name": "ai-security",
+      "description": "AI-specific security skills",
+      "path": "./ai-security",
+      "skills": 1
+    }
+  ],
+  "total_skills": 13,
+  "platforms": ["claude-code", "cursor", "windsurf", "vscode"]
+}

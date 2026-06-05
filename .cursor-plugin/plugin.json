@@ -1,0 +1,21 @@
+{
+  "name": "mcp-skills-server",
+  "description": "Reusable AI skills for code review, test generation, documentation, refactoring, debugging, and git commits",
+  "version": "1.0.0",
+  "author": {
+    "name": "",
+    "email": "",
+    "url": ""
+  },
+  "homepage": "https://github.com/your-username/mcp-skills-server",
+  "repository": "https://github.com/your-username/mcp-skills-server",
+  "license": "MIT",
+  "keywords": ["code-review", "testing", "documentation", "refactor", "debugging", "git", "developer-tools"],
+  "skills": ".cursor/skills",
+  "mcpServers": {
+    "skills": {
+      "command": "npx",
+      "args": ["-y", "mcp-skills-server"]
+    }
+  }
+}
