@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <radialGradient id="bg" cx="30%" cy="25%" r="80%">
+      <stop offset="0%" stop-color="#2a0c16"/>
+      <stop offset="100%" stop-color="#080306"/>
+    </radialGradient>
+    <radialGradient id="glow-r" cx="45%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#c8395a" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#c8395a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow-edge" cx="50%" cy="50%" r="50%">
+      <stop offset="60%" stop-color="transparent"/>
+      <stop offset="100%" stop-color="#5a0a20" stop-opacity="0.6"/>
+    </radialGradient>
+    <filter id="f-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.0" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="f-soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="0.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background tile -->
+  <rect width="64" height="64" rx="12" fill="url(#bg)"/>
+  <!-- Edge vignette -->
+  <rect width="64" height="64" rx="12" fill="url(#glow-edge)"/>
+  <!-- Subtle border -->
+  <rect width="64" height="64" rx="12" fill="none" stroke="#3d1020" stroke-width="1.5"/>
+
+  <!-- Warm inner glow -->
+  <ellipse cx="26" cy="26" rx="24" ry="22" fill="url(#glow-r)"/>
+
+  <!-- Decorative corner rune marks — very faint angular tick marks -->
+  <line x1="5"  y1="5"  x2="10" y2="5"  stroke="#c8395a" stroke-width="1" stroke-linecap="square" opacity="0.28"/>
+  <line x1="5"  y1="5"  x2="5"  y2="10" stroke="#c8395a" stroke-width="1" stroke-linecap="square" opacity="0.28"/>
+  <line x1="59" y1="5"  x2="54" y2="5"  stroke="#c8395a" stroke-width="1" stroke-linecap="square" opacity="0.28"/>
+  <line x1="59" y1="5"  x2="59" y2="10" stroke="#c8395a" stroke-width="1" stroke-linecap="square" opacity="0.28"/>
+  <line x1="5"  y1="59" x2="10" y2="59" stroke="#c8395a" stroke-width="1" stroke-linecap="square" opacity="0.28"/>
+  <line x1="5"  y1="59" x2="5"  y2="54" stroke="#c8395a" stroke-width="1" stroke-linecap="square" opacity="0.28"/>
+
+  <!-- Runic R mark — angular Elder-Futhark-inspired letterform -->
+  <!-- Vertical spine -->
+  <line x1="17" y1="10" x2="17" y2="54" stroke="#f5e8ed" stroke-width="4" stroke-linecap="square" filter="url(#f-glow)"/>
+
+  <!-- Top bowl: horizontal cap, angled right side, mid-crossbar -->
+  <polyline points="17,10 39,10 48,19 48,27 39,36 17,36"
+            stroke="#f5e8ed" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter" fill="none" filter="url(#f-glow)"/>
+
+  <!-- Diagonal leg from bowl midpoint to lower right -->
+  <line x1="32" y1="36" x2="50" y2="54" stroke="#f5e8ed" stroke-width="4" stroke-linecap="square" filter="url(#f-glow)"/>
+
+  <!-- Subtle angular ticks on spine — references Futhark stave marks -->
+  <line x1="17" y1="24" x2="23" y2="20" stroke="#c8395a" stroke-width="1.5" stroke-linecap="square" opacity="0.55" filter="url(#f-soft)"/>
+  <line x1="17" y1="44" x2="23" y2="40" stroke="#c8395a" stroke-width="1.5" stroke-linecap="square" opacity="0.45" filter="url(#f-soft)"/>
+
+  <!-- Wine accent dot -->
+  <circle cx="52" cy="11" r="2" fill="#b02848" opacity="0.9"/>
+  <!-- Secondary tiny mark -->
+  <circle cx="52" cy="18" r="1.2" fill="#b02848" opacity="0.4"/>
+</svg>

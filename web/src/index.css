@@ -1,0 +1,612 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════
+   DESIGN TOKENS
+   Base: neutral black / gray
+   Accent: wine (#c0394a region) — used sparingly
+═══════════════════════════════════════ */
+@layer base {
+  :root {
+    /* Light — slightly gray, not pure white */
+    --background:         220 12% 95.5%;
+    --foreground:         0 0% 6%;
+    --card:               220 10% 97.5%;
+    --card-foreground:    0 0% 6%;
+    --popover:            220 10% 97%;
+    --popover-foreground: 0 0% 6%;
+    --primary:            355 62% 28%;      /* wine — CTA button */
+    --primary-foreground: 0 0% 98%;
+    --secondary:          220 10% 91%;
+    --secondary-foreground: 0 0% 14%;
+    --muted:              220 10% 92%;
+    --muted-foreground:   0 0% 42%;
+    --accent:             220 10% 89%;
+    --accent-foreground:  0 0% 14%;
+    --destructive:        0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border:             220 10% 85%;
+    --input:              220 10% 85%;
+    --ring:               355 62% 28%;
+    --radius:             0.375rem;
+    --highlight:          355 60% 38%;      /* wine accent */
+  }
+
+  .dark {
+    /* Dark — warm near-black with subtle forge/manuscript tint */
+    --background:         355 7% 4.5%;      /* #0c0809 — warm forge black */
+    --foreground:         30 8% 94%;        /* near-white with warmth */
+    --card:               355 6% 7%;        /* warm near-black card */
+    --card-foreground:    30 8% 94%;
+    --popover:            355 6% 5.5%;
+    --popover-foreground: 30 8% 94%;
+    --primary:            0 0% 96%;         /* white CTA in dark */
+    --primary-foreground: 0 0% 5%;
+    --secondary:          355 5% 10%;
+    --secondary-foreground: 30 6% 90%;
+    --muted:              355 5% 9%;
+    --muted-foreground:   0 0% 48%;
+    --accent:             355 5% 13%;
+    --accent-foreground:  30 5% 82%;
+    --destructive:        0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
+    --border:             355 6% 13%;       /* warm dark border */
+    --input:              355 6% 13%;
+    --ring:               0 0% 96%;
+    --highlight:          355 58% 52%;      /* wine accent — use sparingly */
+  }
+}
+
+@layer base {
+  html { font-size: 16px; scroll-behavior: smooth; }
+  * { @apply border-border; }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: 'ss01', 'cv01';
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: 'Funnel Display', sans-serif; }
+
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { @apply bg-transparent; }
+  ::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 99px; }
+  ::-webkit-scrollbar-thumb:hover { background: hsl(var(--highlight) / 0.5); }
+
+  ::selection {
+    background: hsl(var(--highlight) / 0.18);
+    color: hsl(var(--foreground));
+  }
+}
+
+/* ═══════════════════════════════════════
+   GRAIN TEXTURE OVERLAY
+═══════════════════════════════════════ */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* ═══════════════════════════════════════
+   CURSOR SPOTLIGHT
+   Subtle: near-invisible white shimmer + faint wine ring
+═══════════════════════════════════════ */
+.dark body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background:
+    radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%),
+      hsl(0 0% 100% / 0.03),
+      transparent 70%),
+    radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%),
+      hsl(355 55% 38% / 0.055),
+      transparent 70%);
+  transition: background 0.12s ease;
+}
+
+/* ═══════════════════════════════════════
+   UTILITIES
+═══════════════════════════════════════ */
+@layer utilities {
+  /* Wine gradient — only on specific text like hero title2 */
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(355 62% 36%), hsl(20 50% 30%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .dark .gradient-text {
+    background: linear-gradient(135deg, hsl(355 60% 65%), hsl(15 50% 52%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Dot grid — neutral */
+  .dot-grid {
+    background-image: radial-gradient(circle, hsl(var(--border)) 1px, transparent 1px);
+    background-size: 26px 26px;
+  }
+
+  .text-highlight   { color: hsl(var(--highlight)); }
+  .bg-highlight     { background-color: hsl(var(--highlight)); }
+  .border-highlight { border-color: hsl(var(--highlight)); }
+
+  /* Card hover — subtle lift, neutral in dark */
+  .card-lift {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .dark .card-lift:hover {
+    border-color: hsl(0 0% 20%);
+    box-shadow:
+      0 0 0 1px hsl(0 0% 16%),
+      0 8px 28px hsl(0 0% 0% / 0.6);
+    transform: translateY(-2px);
+  }
+  .card-lift:hover {
+    border-color: hsl(0 0% 70%);
+    box-shadow: 0 4px 20px hsl(0 0% 0% / 0.08);
+    transform: translateY(-2px);
+  }
+
+  /* Nav underline — wine accent */
+  .nav-underline { position: relative; }
+  .nav-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 50%;
+    width: 0; height: 1px;
+    background: hsl(var(--highlight));
+    transition: width 0.25s ease, left 0.25s ease;
+  }
+  .nav-underline:hover::after { width: 100%; left: 0; }
+
+  /* Skill description */
+  .skill-desc {
+    font-style: normal;
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    color: hsl(var(--muted-foreground));
+  }
+}
+
+/* ═══════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity  0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.in-view { opacity: 1; transform: none; }
+
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity  0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-stagger.in-view > *:nth-child(1)   { opacity:1; transform:none; transition-delay:   0ms; }
+.reveal-stagger.in-view > *:nth-child(2)   { opacity:1; transform:none; transition-delay:  60ms; }
+.reveal-stagger.in-view > *:nth-child(3)   { opacity:1; transform:none; transition-delay: 120ms; }
+.reveal-stagger.in-view > *:nth-child(4)   { opacity:1; transform:none; transition-delay: 180ms; }
+.reveal-stagger.in-view > *:nth-child(5)   { opacity:1; transform:none; transition-delay: 240ms; }
+.reveal-stagger.in-view > *:nth-child(6)   { opacity:1; transform:none; transition-delay: 300ms; }
+.reveal-stagger.in-view > *:nth-child(n+7) { opacity:1; transform:none; transition-delay: 360ms; }
+
+/* ═══════════════════════════════════════
+   HERO — LINE / WORD MASK REVEAL
+═══════════════════════════════════════ */
+@keyframes line-up {
+  0%   { transform: translateY(105%); opacity: 0; }
+  100% { transform: translateY(0);    opacity: 1; }
+}
+
+.line-mask {
+  overflow: hidden;
+  display: block;
+}
+.line-mask > * {
+  display: block;
+  animation: line-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+/* ═══════════════════════════════════════
+   HERO BACKGROUND — NEUTRAL DARK ORBS
+   Wine accent only on orb-accent
+═══════════════════════════════════════ */
+@keyframes orb-drift-1 {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33%     { transform: translate(40px,-35px) scale(1.06); }
+  66%     { transform: translate(-25px,20px) scale(0.95); }
+}
+@keyframes orb-drift-2 {
+  0%,100% { transform: translate(0,0) scale(1); }
+  40%     { transform: translate(-50px,38px) scale(1.05); }
+  75%     { transform: translate(35px,-22px) scale(0.94); }
+}
+@keyframes orb-drift-3 {
+  0%,100% { transform: translate(0,0) scale(1); }
+  50%     { transform: translate(22px,40px) scale(1.08); }
+}
+@keyframes orb-drift-4 {
+  0%,100% { transform: translate(0,0) scale(1); }
+  45%     { transform: translate(-30px,-28px) scale(1.04); }
+  80%     { transform: translate(38px,16px) scale(0.96); }
+}
+
+@keyframes beam-slide {
+  0%   { opacity:0; transform:translateX(-120%) rotate(-28deg); }
+  8%   { opacity:1; }
+  82%  { opacity:0.3; }
+  100% { opacity:0; transform:translateX(220%) rotate(-28deg); }
+}
+
+@keyframes bubble-float {
+  0%   { transform:translateY(0) translateX(0) scale(1); opacity:0; }
+  8%   { opacity:0.6; }
+  50%  { transform:translateY(-55px) translateX(6px) scale(1.04); opacity:0.45; }
+  88%  { opacity:0.2; }
+  100% { transform:translateY(-145px) translateX(-4px) scale(0.82); opacity:0; }
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Light mode orbs — very subtle */
+.hero-orb-1 {
+  width:600px; height:600px;
+  background: radial-gradient(circle, hsl(0 0% 10% / 0.12), transparent 70%);
+  top:-170px; left:50%; transform:translateX(-50%);
+  animation: orb-drift-1 20s ease-in-out infinite;
+}
+.hero-orb-2 {
+  width:420px; height:420px;
+  background: radial-gradient(circle, hsl(0 0% 8% / 0.1), transparent 70%);
+  bottom:-90px; left:4%;
+  animation: orb-drift-2 24s ease-in-out infinite;
+}
+.hero-orb-3 {
+  width:320px; height:320px;
+  background: radial-gradient(circle, hsl(0 0% 8% / 0.08), transparent 70%);
+  top:22%; right:3%;
+  animation: orb-drift-3 17s ease-in-out infinite;
+}
+.hero-orb-4 {
+  width:260px; height:260px;
+  background: radial-gradient(circle, hsl(0 0% 6% / 0.07), transparent 70%);
+  bottom:4%; right:28%;
+  animation: orb-drift-4 21s ease-in-out infinite;
+}
+
+/* Dark mode orbs — neutral deep dark */
+.dark .hero-orb-1 {
+  background: radial-gradient(circle, hsl(0 0% 14% / 0.55), transparent 70%);
+}
+.dark .hero-orb-2 {
+  background: radial-gradient(circle, hsl(0 0% 10% / 0.4), transparent 70%);
+}
+.dark .hero-orb-3 {
+  background: radial-gradient(circle, hsl(0 0% 12% / 0.35), transparent 70%);
+}
+.dark .hero-orb-4 {
+  background: radial-gradient(circle, hsl(0 0% 8% / 0.3), transparent 70%);
+}
+
+/* Accent orb — single wine hint, bottom corner */
+.hero-orb-accent {
+  position: absolute;
+  width:480px; height:480px;
+  border-radius: 50%;
+  filter: blur(130px);
+  pointer-events: none;
+  background: radial-gradient(circle, hsl(355 45% 25% / 0.06), transparent 70%);
+  bottom:0; right:5%;
+  animation: orb-drift-4 28s ease-in-out infinite;
+}
+.dark .hero-orb-accent {
+  background: radial-gradient(circle, hsl(355 50% 30% / 0.14), transparent 70%);
+}
+
+/* Beam — very subtle */
+.hero-beam {
+  position: absolute;
+  top:0; left:-70%;
+  width:40%; height:100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    hsl(0 0% 100% / 0.01),
+    hsl(0 0% 100% / 0.025),
+    hsl(0 0% 100% / 0.01),
+    transparent
+  );
+  pointer-events: none;
+  animation: beam-slide 14s ease-in-out infinite;
+  animation-delay: 4s;
+}
+.dark .hero-beam {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    hsl(0 0% 100% / 0.015),
+    hsl(0 0% 100% / 0.04),
+    hsl(0 0% 100% / 0.015),
+    transparent
+  );
+}
+
+/* ═══════════════════════════════════════
+   MARQUEE TICKER
+═══════════════════════════════════════ */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+  will-change: transform;
+}
+.marquee-track:hover { animation-play-state: paused; }
+
+/* Drawn underline animation */
+@keyframes draw-line {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+/* Floating bubbles */
+.hero-bubble {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid hsl(0 0% 30% / 0.15);
+  background: hsl(0 0% 20% / 0.03);
+  pointer-events: none;
+  animation: bubble-float ease-in-out infinite;
+  will-change: transform, opacity;
+}
+.dark .hero-bubble {
+  border-color: hsl(0 0% 50% / 0.1);
+  background: hsl(0 0% 30% / 0.04);
+}
+
+/* ═══════════════════════════════════════
+   HERO — DARK MODE: AURORA PLASMA
+   Large, dramatic, colorful orbs
+═══════════════════════════════════════ */
+@keyframes aurora-drift-1 {
+  0%,100% { transform: translate(0,0) scale(1) rotate(0deg); }
+  25%     { transform: translate(60px,-50px) scale(1.12) rotate(4deg); }
+  50%     { transform: translate(-40px,30px) scale(0.92) rotate(-3deg); }
+  75%     { transform: translate(30px,60px) scale(1.05) rotate(2deg); }
+}
+@keyframes aurora-drift-2 {
+  0%,100% { transform: translate(0,0) scale(1) rotate(0deg); }
+  33%     { transform: translate(-70px,55px) scale(1.1) rotate(-5deg); }
+  66%     { transform: translate(50px,-35px) scale(0.9) rotate(3deg); }
+}
+@keyframes aurora-drift-3 {
+  0%,100% { transform: translate(0,0) scale(1); }
+  40%     { transform: translate(35px,-60px) scale(1.15); }
+  80%     { transform: translate(-45px,25px) scale(0.88); }
+}
+@keyframes scan-sweep {
+  0%   { transform: translateY(-4px); opacity: 0; }
+  3%   { opacity: 1; }
+  93%  { opacity: 0.6; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+/* Dark aurora orbs — only visible in dark mode */
+.hero-aurora {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+  filter: blur(110px);
+  display: none;
+}
+.dark .hero-aurora { display: block; }
+
+.hero-aurora-1 {
+  width: 900px; height: 900px;
+  background: radial-gradient(circle, hsl(355 65% 22% / 0.45), hsl(290 45% 18% / 0.2), transparent 70%);
+  top: -200px; left: -100px;
+  animation: aurora-drift-1 18s ease-in-out infinite;
+}
+.hero-aurora-2 {
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, hsl(220 70% 18% / 0.38), hsl(250 55% 20% / 0.2), transparent 70%);
+  bottom: -120px; right: -80px;
+  animation: aurora-drift-2 24s ease-in-out infinite;
+}
+.hero-aurora-3 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, hsl(355 55% 28% / 0.32), transparent 70%);
+  top: 25%; right: 8%;
+  animation: aurora-drift-3 20s ease-in-out infinite;
+}
+
+/* Scan line — dark only */
+.hero-scan-line {
+  position: absolute;
+  left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent 0%, hsl(355 60% 50% / 0.4) 20%, hsl(0 0% 80% / 0.6) 50%, hsl(355 60% 50% / 0.4) 80%, transparent 100%);
+  pointer-events: none;
+  top: 0;
+  animation: scan-sweep 9s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation-delay: 2s;
+  display: none;
+}
+.dark .hero-scan-line { display: block; }
+
+/* ═══════════════════════════════════════
+   HERO — LIGHT MODE: ORGANIC BLOBS
+   Soft morphing shapes, editorial feel
+═══════════════════════════════════════ */
+@keyframes blob-morph-1 {
+  0%,100% { border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%; transform: scale(1) rotate(0deg); }
+  25%     { border-radius: 46% 54% 37% 63% / 45% 52% 48% 55%; transform: scale(1.06) rotate(3deg); }
+  50%     { border-radius: 37% 63% 46% 54% / 52% 45% 55% 48%; transform: scale(0.94) rotate(-2deg); }
+  75%     { border-radius: 54% 46% 63% 37% / 48% 55% 45% 52%; transform: scale(1.03) rotate(1deg); }
+}
+@keyframes blob-morph-2 {
+  0%,100% { border-radius: 40% 60% 55% 45% / 58% 42% 60% 40%; transform: scale(1) rotate(0deg); }
+  33%     { border-radius: 60% 40% 45% 55% / 42% 58% 40% 60%; transform: scale(1.08) rotate(-4deg); }
+  66%     { border-radius: 50% 50% 40% 60% / 50% 50% 60% 40%; transform: scale(0.92) rotate(3deg); }
+}
+@keyframes blob-morph-3 {
+  0%,100% { border-radius: 55% 45% 40% 60% / 45% 55% 60% 40%; transform: scale(1); }
+  50%     { border-radius: 40% 60% 60% 40% / 55% 45% 40% 60%; transform: scale(1.1) rotate(5deg); }
+}
+@keyframes blob-drift-1 {
+  0%,100% { top: -120px; left: 55%; }
+  40%     { top: -60px; left: 60%; }
+  80%     { top: -150px; left: 50%; }
+}
+@keyframes blob-drift-2 {
+  0%,100% { bottom: -80px; left: -60px; }
+  50%     { bottom: -30px; left: -20px; }
+}
+@keyframes blob-drift-3 {
+  0%,100% { top: 30%; right: -40px; }
+  45%     { top: 20%; right: 20px; }
+}
+
+.hero-blob {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform, border-radius;
+  display: block;
+}
+.dark .hero-blob { display: none; }
+
+.hero-blob-1 {
+  width: 700px; height: 600px;
+  background: radial-gradient(ellipse, hsl(355 30% 88% / 0.65), hsl(340 20% 84% / 0.3), transparent 75%);
+  filter: blur(70px);
+  top: -120px; left: 50%;
+  animation: blob-morph-1 16s ease-in-out infinite, blob-drift-1 20s ease-in-out infinite;
+}
+.hero-blob-2 {
+  width: 600px; height: 500px;
+  background: radial-gradient(ellipse, hsl(30 35% 88% / 0.6), hsl(20 25% 85% / 0.25), transparent 75%);
+  filter: blur(80px);
+  bottom: -80px; left: -60px;
+  animation: blob-morph-2 19s ease-in-out infinite, blob-drift-2 24s ease-in-out infinite;
+}
+.hero-blob-3 {
+  width: 480px; height: 450px;
+  background: radial-gradient(ellipse, hsl(220 25% 86% / 0.5), transparent 75%);
+  filter: blur(60px);
+  top: 30%; right: -40px;
+  animation: blob-morph-3 14s ease-in-out infinite, blob-drift-3 18s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════
+   HERO — FLOATING RUNE CHARACTERS
+   Elder Futhark symbols drifting through hero
+═══════════════════════════════════════ */
+@keyframes rune-drift-a {
+  0%   { opacity:0; transform: translate(0,0) rotate(-6deg) scale(0.85); }
+  12%  { opacity: var(--ro, 0.07); }
+  55%  { opacity: var(--ro, 0.07); transform: translate(18px,-55px) rotate(4deg) scale(1.05); }
+  88%  { opacity: calc(var(--ro, 0.07) * 0.4); }
+  100% { opacity:0; transform: translate(8px,-90px) rotate(10deg) scale(0.9); }
+}
+@keyframes rune-drift-b {
+  0%   { opacity:0; transform: translate(0,0) rotate(5deg) scale(0.9); }
+  10%  { opacity: var(--ro, 0.06); }
+  50%  { opacity: var(--ro, 0.06); transform: translate(-22px,-42px) rotate(-8deg) scale(1.08); }
+  85%  { opacity: calc(var(--ro, 0.06) * 0.35); }
+  100% { opacity:0; transform: translate(-10px,-75px) rotate(-14deg) scale(0.88); }
+}
+@keyframes rune-drift-c {
+  0%   { opacity:0; transform: translate(0,0) rotate(0deg) scale(1); }
+  15%  { opacity: var(--ro, 0.05); }
+  60%  { opacity: var(--ro, 0.05); transform: translate(28px,-38px) rotate(12deg) scale(0.95); }
+  90%  { opacity: 0; }
+  100% { opacity:0; transform: translate(14px,-65px) rotate(18deg) scale(0.82); }
+}
+@keyframes rune-drift-d {
+  0%   { opacity:0; transform: translate(0,0) rotate(-10deg) scale(0.92); }
+  14%  { opacity: var(--ro, 0.08); }
+  48%  { opacity: var(--ro, 0.08); transform: translate(-15px,-48px) rotate(5deg) scale(1.06); }
+  82%  { opacity: calc(var(--ro, 0.08) * 0.3); }
+  100% { opacity:0; transform: translate(-5px,-80px) rotate(9deg) scale(0.86); }
+}
+
+.hero-rune {
+  position: absolute;
+  pointer-events: none;
+  font-family: 'JetBrains Mono', monospace;
+  line-height: 1;
+  color: hsl(var(--foreground));
+  opacity: 0;
+  will-change: transform, opacity;
+  user-select: none;
+  letter-spacing: -0.02em;
+}
+/* Light mode */
+.hero-rune { --ro: 0.13; }
+/* Dark mode — more vivid */
+.dark .hero-rune { --ro: 0.26; }
+
+/* ═══════════════════════════════════════
+   HERO — RUNE BUBBLE BURST
+   Circles containing rune chars that pop
+═══════════════════════════════════════ */
+@keyframes rune-bubble-rise {
+  0%   { transform: translateY(0) scale(0.65); opacity:0; }
+  8%   { opacity:0.7; transform: translateY(-12px) scale(1); }
+  65%  { opacity:0.55; transform: translateY(-60px) scale(1.03); }
+  85%  { opacity:0.2; transform: translateY(-90px) scale(1.05); }
+  /* pop: ring expands outward */
+  86%  { transform: translateY(-95px) scale(1.05); opacity:0; }
+  87%  { opacity:0.9; transform: translateY(-95px) scale(2.2); border-width: 1px; background: transparent; }
+  100% { opacity:0; transform: translateY(-95px) scale(3.8); border-width: 0.5px; }
+}
+
+.hero-bubble-rune {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid hsl(var(--foreground) / 0.28);
+  background: hsl(var(--foreground) / 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: rune-bubble-rise ease-in-out infinite;
+  user-select: none;
+  font-family: 'JetBrains Mono', monospace;
+  color: hsl(var(--foreground) / 0.7);
+}
+.dark .hero-bubble-rune {
+  border-color: hsl(355 55% 58% / 0.38);
+  background: hsl(355 35% 20% / 0.07);
+  color: hsl(355 65% 68% / 0.8);
+}
