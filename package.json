@@ -15,12 +15,17 @@
   ],
   "scripts": {
     "build": "tsc && shx chmod +x dist/index.js",
+    "build:cursor-commands": "node scripts/generate-cursor-commands.mjs",
+    "build:vscode": "cd packages/vscode-extension && npm run build",
+    "build:all": "npm run build && npm run build:cursor-commands",
     "prepare": "npm run build",
     "dev": "tsx watch src/index.ts",
     "start": "node dist/index.js",
     "lint": "eslint src --ext .ts",
     "test": "vitest run",
-    "icons": "node scripts/generate-icons.mjs"
+    "icons": "node scripts/generate-icons.mjs",
+    "package:vscode": "cd packages/vscode-extension && npm run package",
+    "publish:vscode": "cd packages/vscode-extension && npm run publish"
   },
   "keywords": [
     "mcp",

@@ -43,17 +43,16 @@ class McpClient {
         this.pending.clear()
       })
 
-      // Give it time to start before we send initialize
       setTimeout(resolve, 800)
     })
 
     const initResult = await this.request('initialize', {
       protocolVersion: '2024-11-05',
       capabilities: {},
-      clientInfo: { name: 'runic-vscode', version: '1.0.2' },
+      clientInfo: { name: 'runic-vscode', version: '1.1.0' },
     }) as { capabilities?: unknown }
 
-    void initResult // ignore capabilities for now
+    void initResult
     this.notify('notifications/initialized', {})
     this.ready = true
   }
@@ -201,7 +200,7 @@ async function configureVSCode() {
   if (action === 'Reload Now') vscode.commands.executeCommand('workbench.action.reloadWindow')
 }
 
-// ── List Skills Webview ───────────────────────────────────────────────────────
+// ── Skills Webview ────────────────────────────────────────────────────────────
 
 async function listSkills(client: McpClient) {
   const editor = isCursor() ? 'Cursor' : 'VS Code'
@@ -218,7 +217,6 @@ async function listSkills(client: McpClient) {
   try {
     tools = await client.listTools()
   } catch {
-    // fallback to static list
     tools = STATIC_SKILLS
   }
 
@@ -232,10 +230,16 @@ function getLoadingHtml(editor: string): string {
 }
 
 function getSkillsHtml(editor: string, tools: Array<{ name: string; description: string }>): string {
-  const skillRows = tools
+  const isCursorEnv = isCursor()
+  const skillCount  = tools.filter(t => t.name !== 'runic-list').length
+  const skillRows   = tools
     .filter(t => t.name !== 'runic-list')
-    .map(t => `<tr><td><code>${t.name}</code></td><td>${escHtml(t.description)}</td></tr>`)
+    .map(t => `<tr><td><code>${escHtml(t.name)}</code></td><td>${escHtml(t.description)}</td></tr>`)
     .join('')
+
+  const howToInvoke = isCursorEnv
+    ? 'In <strong>Cursor chat</strong>, type <code>/skill-name</code> (plugin) or ask the AI to use a Runic MCP tool.'
+    : 'In <strong>VS Code Copilot Chat</strong>, type <code>@runic /skill-name</code>. Outside Copilot, ask your AI assistant to call the MCP tool by name.'
 
   return `<!DOCTYPE html>
 <html>
@@ -258,20 +262,14 @@ function getSkillsHtml(editor: string, tools: Array<{ name: string; description:
 </style>
 </head>
 <body>
-  <h1>Runic Skills <span class="badge">${escHtml(editor)}</span> <span class="badge">${tools.length - 1} skills</span></h1>
-  <p class="meta">AI & Dev skills exposed via MCP. Ask your AI assistant to use any of them, or type <strong>@runic /skill-name</strong> in Copilot Chat.</p>
-  <div class="tip">
-    <strong>How to invoke:</strong>
-    ${isCursor()
-      ? 'In Cursor chat, just ask naturally — e.g. <em>"review this code using runic"</em> or <em>"use runic code-review"</em>.'
-      : 'In VS Code Copilot Chat, type <code>@runic /code-review</code>. Outside Copilot, ask your AI assistant to call the MCP tool by name.'}
-  </div>
+  <h1>Runic Skills <span class="badge">${escHtml(editor)}</span> <span class="badge">${skillCount} skills</span></h1>
+  <p class="meta">AI & Dev skills exposed via MCP. Full docs: <a href="https://github.com/Diottodev/runic">github.com/Diottodev/runic</a></p>
+  <div class="tip"><strong>How to invoke:</strong> ${howToInvoke}</div>
   <br>
   <table>
     <thead><tr><th>Skill</th><th>Description</th></tr></thead>
     <tbody>${skillRows}</tbody>
   </table>
-  <p class="meta" style="margin-top:16px">Full docs: <a href="https://github.com/Diottodev/runic">github.com/Diottodev/runic</a></p>
 </body>
 </html>`
 }
@@ -280,78 +278,105 @@ function escHtml(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 }
 
-// ── Static skill fallback (shown when MCP server is not yet available) ────────
+// ── Static skill fallback ─────────────────────────────────────────────────────
 
 const STATIC_SKILLS: Array<{ name: string; description: string }> = [
-  { name: 'code-review', description: 'Review code for bugs, security vulnerabilities, and quality issues.' },
-  { name: 'debug-error', description: 'Diagnose errors and stack traces, identify root cause, provide fix.' },
-  { name: 'generate-tests', description: 'Generate unit tests with Arrange/Act/Assert structure.' },
-  { name: 'refactor', description: 'Refactor code following Clean Code, SOLID, and DRY principles.' },
-  { name: 'explain-code', description: 'Explain what code does at beginner, intermediate, or expert depth.' },
-  { name: 'git-commit', description: 'Generate Conventional Commit messages from a diff or change description.' },
-  { name: 'write-docs', description: 'Generate JSDoc, TSDoc, Python docstrings, or inline comments.' },
-  { name: 'prompt-engineering', description: 'Design, evaluate, and iterate on LLM prompts.' },
-  { name: 'llm-cost-optimizer', description: 'Analyze LLM inference costs and propose optimizations.' },
-  { name: 'agent-designer', description: 'Design AI agent architectures with tool selection and memory systems.' },
-  { name: 'security-guidance', description: 'Security review for OWASP top 10 and common vulnerabilities.' },
-  { name: 'a11y-audit', description: 'Accessibility audit for WCAG 2.2 Level A and AA compliance.' },
-  { name: 'prompt-injection', description: 'Detect, test, and harden against prompt injection attacks.' },
-  { name: 'benchmark-analyzer', description: 'Interpret and compare AI model benchmark results.' },
-  { name: 'model-eval', description: 'Design custom evaluation frameworks for LLM-powered features.' },
+  { name: 'code-review',             description: 'Review code for bugs, security vulnerabilities, and quality issues.' },
+  { name: 'debug-error',             description: 'Diagnose errors and stack traces, identify root cause, provide fix.' },
+  { name: 'generate-tests',          description: 'Generate unit tests with Arrange/Act/Assert structure.' },
+  { name: 'refactor',                description: 'Refactor code following Clean Code, SOLID, and DRY principles.' },
+  { name: 'explain-code',            description: 'Explain what code does at beginner, intermediate, or expert depth.' },
+  { name: 'git-commit',              description: 'Generate Conventional Commit messages from a diff or change description.' },
+  { name: 'write-docs',              description: 'Generate JSDoc, TSDoc, Python docstrings, or inline comments.' },
+  { name: 'prompt-engineering',      description: 'Design, evaluate, and iterate on LLM prompts.' },
+  { name: 'llm-cost-optimizer',      description: 'Analyze LLM inference costs and propose optimizations.' },
+  { name: 'agent-designer',          description: 'Design AI agent architectures with tool selection and memory systems.' },
+  { name: 'security-guidance',       description: 'Security review for OWASP top 10 and common vulnerabilities.' },
+  { name: 'a11y-audit',              description: 'Accessibility audit for WCAG 2.2 Level A and AA compliance.' },
+  { name: 'prompt-injection',        description: 'Detect, test, and harden against prompt injection attacks.' },
+  { name: 'benchmark-analyzer',      description: 'Interpret and compare AI model benchmark results.' },
+  { name: 'model-eval',              description: 'Design custom evaluation frameworks for LLM-powered features.' },
+  { name: 'data-quality-auditor',    description: 'Audit data pipelines and datasets for quality issues.' },
+  { name: 'agenthub',                description: 'Multi-agent collaboration with parallel subagents.' },
+  { name: 'autoresearch-agent',      description: 'Autonomous experiment loop for AI optimization tasks.' },
+  { name: 'chaos-engineering',       description: 'Design chaos experiments and failure injection strategies.' },
+  { name: 'docker-development',      description: 'Containerize applications with Docker best practices.' },
+  { name: 'terraform-patterns',      description: 'Infrastructure-as-code patterns with Terraform.' },
+  { name: 'kubernetes-operator',     description: 'Build Kubernetes operators and custom controllers.' },
+  { name: 'slo-architect',           description: 'Define SLOs, SLIs, and error budgets.' },
+  { name: 'observability-designer',  description: 'Design observability stacks — logs, metrics, traces.' },
+  { name: 'feature-flags-architect', description: 'Design feature flag systems and rollout strategies.' },
+  { name: 'mcp-server-builder',      description: 'Build Model Context Protocol servers and tools.' },
+  { name: 'rag-architect',           description: 'Design RAG pipelines and retrieval systems.' },
+  { name: 'performance-profiler',    description: 'Profile and optimize application performance.' },
+  { name: 'database-designer',       description: 'Design relational and NoSQL database schemas.' },
+  { name: 'api-design-reviewer',     description: 'Review REST/GraphQL APIs for design quality.' },
+  { name: 'ci-cd-pipeline-builder',  description: 'Build CI/CD pipelines with GitHub Actions or GitLab CI.' },
+  { name: 'tdd-guide',               description: 'Test-driven development coaching — red-green-refactor.' },
+  { name: 'handoff',                 description: 'Generate handoff documents for team transitions.' },
+  { name: 'write-a-skill',           description: 'Scaffold a new Runic skill following the 10-Pattern Framework.' },
 ]
 
 // ── Chat Participant (VS Code Copilot Chat) ───────────────────────────────────
 
-function registerChatParticipant(context: vscode.ExtensionContext, client: McpClient) {
-  // vscode.chat is only available with Copilot — guard with try/catch
-  try {
-    const chat = (vscode as unknown as { chat?: { createChatParticipant(id: string, handler: unknown): vscode.Disposable & { iconPath?: unknown; followupProvider?: unknown } } }).chat
-    if (!chat?.createChatParticipant) return
-
-    const participant = chat.createChatParticipant('runic.assistant', async (
+type VsCodeChatApi = {
+  createChatParticipant(
+    id: string,
+    handler: (
       request: vscode.ChatRequest,
-      _context: vscode.ChatContext,
+      context: vscode.ChatContext,
       stream: vscode.ChatResponseStream,
-      _token: vscode.CancellationToken,
-    ) => {
-      const skillName = request.command
+      token: vscode.CancellationToken,
+    ) => Promise<void>,
+  ): vscode.Disposable & { iconPath?: vscode.ThemeIcon }
+}
+
+function registerChatParticipant(context: vscode.ExtensionContext, client: McpClient) {
+  // vscode.chat is only available when GitHub Copilot is installed
+  const chat = (vscode as unknown as { chat?: VsCodeChatApi }).chat
+  if (!chat?.createChatParticipant) return
+
+  const participant = chat.createChatParticipant(
+    'runic.assistant',
+    async (request, _ctx, stream, _token) => {
+      const skillName   = request.command
       const userContext = request.prompt?.trim()
 
+      // No skill name — show help
       if (!skillName) {
-        stream.markdown('## Runic Skills\n\nType `@runic /skill-name` to invoke a skill. Examples:\n\n')
-        for (const s of STATIC_SKILLS.slice(0, 8)) {
+        stream.markdown('## Runic Skills\n\nType `@runic /skill-name` to invoke any skill.\n\n**Popular skills:**\n\n')
+        for (const s of STATIC_SKILLS.slice(0, 10)) {
           stream.markdown(`- \`@runic /${s.name}\` — ${s.description}\n`)
         }
-        stream.markdown('\nOr ask me to list all skills: `@runic /runic-list`\n')
+        stream.markdown('\nSee all skills: `@runic /runic-list`\n')
         return
       }
 
-      stream.progress(`Running **${skillName}**...`)
+      stream.progress(`Running **${skillName}**…`)
 
       try {
         const args: Record<string, unknown> = {}
         if (userContext) args.context = userContext
-
         const result = await client.callTool(skillName, args)
         stream.markdown(result)
       } catch (e) {
         const msg = e instanceof Error ? e.message : String(e)
-        stream.markdown(`**Runic error:** ${msg}\n\nMake sure \`npx @diottodev/runic\` is accessible, then try again.`)
+        stream.markdown(
+          `**Runic error:** ${msg}\n\nMake sure \`npx @diottodev/runic\` is accessible, then try again.`,
+        )
       }
-    })
+    },
+  )
 
-    participant.iconPath = new vscode.ThemeIcon('sparkle')
-    context.subscriptions.push(participant)
-  } catch {
-    // vscode.chat not available — silently skip
-  }
+  participant.iconPath = new vscode.ThemeIcon('sparkle')
+  context.subscriptions.push(participant)
 }
 
 // ── Status Bar ────────────────────────────────────────────────────────────────
 
 function createStatusBar(context: vscode.ExtensionContext): vscode.StatusBarItem {
   const item = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100)
-  item.text = '$(sparkle) Runic'
+  item.text    = '$(sparkle) Runic'
   item.tooltip = 'Runic Skills — click to list skills'
   item.command = 'runic.listSkills'
   item.show()
@@ -366,8 +391,8 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push({ dispose: () => client.dispose() })
 
   context.subscriptions.push(
-    vscode.commands.registerCommand('runic.configure', configureMcp),
-    vscode.commands.registerCommand('runic.listSkills', () => listSkills(client)),
+    vscode.commands.registerCommand('runic.configure',   () => configureMcp()),
+    vscode.commands.registerCommand('runic.listSkills',  () => listSkills(client)),
   )
 
   createStatusBar(context)
@@ -376,7 +401,6 @@ export function activate(context: vscode.ExtensionContext) {
   const config = vscode.workspace.getConfiguration('runic')
   if (config.get<boolean>('autoConfigureMcp')) {
     configureMcp()
-    // Pre-warm the MCP connection in the background
     client.ensureConnected().catch(() => { /* ignore on first load */ })
   }
 }

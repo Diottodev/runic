@@ -1,21 +1,20 @@
 {
-  "name": "mcp-skills-server",
-  "description": "Reusable AI skills for code review, test generation, documentation, refactoring, debugging, and git commits",
+  "name": "runic",
+  "displayName": "Runic — AI & Dev Skills",
+  "description": "145 AI & Dev skills available as /slash-commands in Cursor chat. Code review, debug, tests, refactor, docs, agents, security, LLM cost, benchmarks, and more.",
   "version": "1.0.0",
   "author": {
-    "name": "",
-    "email": "",
-    "url": ""
+    "name": "Diottodev",
+    "email": "contact@diottodev.com"
   },
-  "homepage": "https://github.com/your-username/mcp-skills-server",
-  "repository": "https://github.com/your-username/mcp-skills-server",
+  "homepage": "https://github.com/Diottodev/runic",
+  "repository": "https://github.com/Diottodev/runic",
   "license": "MIT",
-  "keywords": ["code-review", "testing", "documentation", "refactor", "debugging", "git", "developer-tools"],
-  "skills": ".cursor/skills",
-  "mcpServers": {
-    "skills": {
-      "command": "npx",
-      "args": ["-y", "mcp-skills-server"]
-    }
-  }
+  "keywords": [
+    "ai", "skills", "code-review", "debug", "testing", "refactor",
+    "docs", "agents", "llm", "mcp", "prompt-engineering", "security"
+  ],
+  "logo": "assets/icon.png",
+  "commands": ".cursor-plugin/commands",
+  "mcpServers": ".cursor-plugin/mcp.json"
 }
