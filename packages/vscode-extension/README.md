@@ -1,6 +1,6 @@
 # Runic Skills — VS Code Extension
 
-> 145 AI & Dev skills available as `/skill-name` slash commands in VS Code Copilot Chat.
+> 91 AI & Dev skills available as `/skill-name` slash commands in VS Code Copilot Chat.
 
 ## How to use
 
