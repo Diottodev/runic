@@ -6,12 +6,23 @@ import { useInView } from '@/hooks/use-in-view'
 import { useLocale } from '@/contexts/locale-context'
 
 const domainColorMap: Record<Domain, 'cyan' | 'blue' | 'violet' | 'rose' | 'amber' | 'emerald'> = {
-  engineering:        'cyan',
-  'engineering-team': 'blue',
-  'ai-research':      'violet',
-  'ai-security':      'rose',
-  research:           'amber',
-  'research-ops':     'emerald',
+  engineering:              'cyan',
+  'engineering-team':       'blue',
+  'ai-research':            'violet',
+  'ai-security':            'rose',
+  research:                 'amber',
+  'research-ops':           'emerald',
+  marketing:                'rose',
+  product:                  'violet',
+  'c-level':                'amber',
+  compliance:               'blue',
+  content:                  'emerald',
+  finance:                  'cyan',
+  commercial:               'violet',
+  productivity:             'amber',
+  'project-management':     'blue',
+  business:                 'emerald',
+  superpowers:              'rose',
 }
 
 export function Skills() {
