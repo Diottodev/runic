@@ -75,7 +75,7 @@ export function Skills() {
               active={activeDomain === d.id}
               onClick={() => setActiveDomain(d.id)}
             >
-              {d.label} ({d.count})
+              {d.label} ({skills.filter(s => s.domain === d.id).length})
             </FilterBtn>
           ))}
         </div>

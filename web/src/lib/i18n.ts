@@ -12,7 +12,7 @@ export const translations = {
       title1: 'AI & Dev skills',
       title2: 'built for developers',
       subtitle:
-        '357 battle-tested skills across 17 domains. Install in seconds via your IDE — code review, debugging, LLM cost optimization, security testing, and more.',
+        '302 battle-tested skills across 17 domains. Install in seconds via your IDE — code review, debugging, LLM cost optimization, security testing, and more.',
       cta_install: 'Install now',
       cta_browse: 'Browse skills',
       stat_domains: 'Domains',
@@ -43,7 +43,7 @@ export const translations = {
         {
           title: 'AI & Dev focused',
           description:
-            'Zero bloat. 357 skills across 17 domains for engineers, product, marketing, and executive teams. Production-grade, no fluff.',
+            'Zero bloat. 302 skills across 17 domains for engineers, product, marketing, and executive teams. Production-grade, no fluff.',
         },
         {
           title: 'Proactive triggers',
@@ -117,7 +117,7 @@ export const translations = {
       count_label: 'skills',
     },
     footer: {
-      tagline: 'Runic — 357 skills across 17 domains for teams who ship.',
+      tagline: 'Runic — 302 skills across 17 domains for teams who ship.',
       made_with: 'MIT License',
     },
   },
@@ -133,7 +133,7 @@ export const translations = {
       title1: 'Skills de IA & Dev',
       title2: 'feitas para desenvolvedores',
       subtitle:
-        '357 skills testadas em batalha em 17 domínios. Instale em segundos via sua IDE — code review, debug, otimização de LLM, testes de segurança e muito mais.',
+        '302 skills testadas em batalha em 17 domínios. Instale em segundos via sua IDE — code review, debug, otimização de LLM, testes de segurança e muito mais.',
       cta_install: 'Instalar agora',
       cta_browse: 'Ver skills',
       stat_domains: 'Domínios',
@@ -164,7 +164,7 @@ export const translations = {
         {
           title: 'Focado em IA & Dev',
           description:
-            'Zero inchaço. 357 skills em 17 domínios para engenheiros, produto, marketing e executivos. Nível produção, sem enrolação.',
+            'Zero inchaço. 302 skills em 17 domínios para engenheiros, produto, marketing e executivos. Nível produção, sem enrolação.',
         },
         {
           title: 'Gatilhos proativos',
@@ -238,7 +238,7 @@ export const translations = {
       count_label: 'skills',
     },
     footer: {
-      tagline: 'Runic — 357 skills em 17 domínios para times que entregam.',
+      tagline: 'Runic — 302 skills em 17 domínios para times que entregam.',
       made_with: 'Licença MIT',
     },
   },

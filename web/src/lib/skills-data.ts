@@ -29,7 +29,7 @@ export interface Skill {
 
 export const domains: { id: Domain; label: string; count: number; color: string }[] = [
   { id: 'engineering',          label: 'Engineering',         count: 37,  color: 'cyan' },
-  { id: 'engineering-team',     label: 'Engineering Team',    count: 38,  color: 'blue' },
+  { id: 'engineering-team',     label: 'Engineering Team',    count: 36,  color: 'blue' },
   { id: 'ai-research',          label: 'AI Research',         count: 2,   color: 'violet' },
   { id: 'ai-security',          label: 'AI Security',         count: 1,   color: 'rose' },
   { id: 'research',             label: 'Research',            count: 8,   color: 'amber' },

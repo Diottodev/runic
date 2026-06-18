@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { ArrowRight, Zap, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useLocale } from '@/contexts/locale-context'
+import { skills } from '@/lib/skills-data'
 
 /* ─── Count-up number ─── */
 function CountUp({ target, delay = 0 }: { target: number; delay?: number }) {
@@ -173,7 +174,7 @@ export function Hero() {
           style={{ animationDelay: '200ms' }}
         >
           <div className="text-right flex flex-col gap-1">
-            <span className="text-[9px] tracking-[0.18em] text-muted-foreground/50 uppercase" style={{ fontFamily: "'Space Mono', monospace" }}>v1.0.0 — MIT</span>
+            <span className="text-[9px] tracking-[0.18em] text-muted-foreground/50 uppercase" style={{ fontFamily: "'Space Mono', monospace" }}>v2.0.0 — MIT</span>
             <span className="text-[9px] tracking-[0.14em] text-muted-foreground/35 uppercase" style={{ fontFamily: "'Space Mono', monospace" }}>Claude · Cursor · Windsurf · VS Code · JetBrains</span>
           </div>
         </div>
@@ -256,7 +257,7 @@ export function Hero() {
           >
             <div className="flex items-baseline gap-1.5">
               <span className="font-display text-2xl font-bold text-foreground tabular-nums">
-                <CountUp target={91} delay={780} />
+                <CountUp target={skills.length} delay={780} />
               </span>
               <span className="text-[10px] text-muted-foreground/70 tracking-[0.06em]" style={{ fontFamily: "'Space Mono', monospace" }}>skills</span>
             </div>
