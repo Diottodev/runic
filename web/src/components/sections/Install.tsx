@@ -116,7 +116,7 @@ const quickStartExamples = [
 ]
 
 export function Install() {
-  const [activeMethod, setActiveMethod] = useState<InstallMethod>('plugin')
+  const [activeMethod, setActiveMethod] = useState<InstallMethod>('mcp')
   const [activeMCPIde, setActiveMCPIde] = useState<IDE>('claude')
   const [activePluginIde, setActivePluginIde] = useState<PluginIDE>('vscode')
   const { t } = useLocale()
