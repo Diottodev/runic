@@ -16,6 +16,17 @@ const DOMAINS = [
   'ai-security',
   'research',
   'research-ops',
+  'marketing',
+  'product',
+  'c-level',
+  'compliance',
+  'content',
+  'finance',
+  'commercial',
+  'productivity',
+  'project-management',
+  'business',
+  'superpowers',
 ]
 
 interface Skill {
