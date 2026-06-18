@@ -1,7 +1,7 @@
 {
   "name": "runic",
   "displayName": "Runic — AI & Dev Skills",
-  "description": "145 AI & Dev skills available as /slash-commands in Cursor chat. Code review, debug, tests, refactor, docs, agents, security, LLM cost, benchmarks, and more.",
+  "description": "357 AI & Dev skills across 17 domains available as /slash-commands in Cursor chat. Code review, debug, tests, refactor, docs, agents, security, LLM cost, benchmarks, and more.",
   "version": "1.0.0",
   "author": {
     "name": "Diottodev",
