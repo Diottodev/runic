@@ -1,7 +1,7 @@
 {
   "name": "@diottodev/runic",
   "version": "1.0.0",
-  "description": "91 AI & Dev skills for Claude Code, Cursor, Windsurf, VS Code, and JetBrains — install via MCP or as a native IDE plugin.",
+  "description": "379 AI & Dev skills for Claude Code, Cursor, Windsurf, VS Code, and JetBrains — install via MCP.",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
@@ -11,7 +11,24 @@
   "files": [
     "dist",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "ai-research",
+    "ai-security",
+    "business",
+    "c-level",
+    "commercial",
+    "compliance",
+    "content",
+    "engineering",
+    "engineering-team",
+    "finance",
+    "marketing",
+    "product",
+    "productivity",
+    "project-management",
+    "research",
+    "research-ops",
+    "superpowers"
   ],
   "scripts": {
     "build": "tsc && shx chmod +x dist/index.js",

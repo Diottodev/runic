@@ -1,9 +1,10 @@
-import { useState, type RefObject } from 'react'
+import { useState, useMemo, type RefObject } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { skills, domains, type Domain } from '@/lib/skills-data'
 import { cn } from '@/lib/utils'
 import { useInView } from '@/hooks/use-in-view'
 import { useLocale } from '@/contexts/locale-context'
+import { Search, X } from 'lucide-react'
 
 const domainColorMap: Record<Domain, 'cyan' | 'blue' | 'violet' | 'rose' | 'amber' | 'emerald'> = {
   engineering:              'cyan',
@@ -27,12 +28,25 @@ const domainColorMap: Record<Domain, 'cyan' | 'blue' | 'violet' | 'rose' | 'ambe
 
 export function Skills() {
   const [activeDomain, setActiveDomain] = useState<Domain | 'all'>('all')
+  const [search, setSearch] = useState('')
   const { ref: headerRef, inView: headerIn } = useInView()
   const { t, locale } = useLocale()
 
-  const filtered = activeDomain === 'all'
+  const domainFiltered = activeDomain === 'all'
     ? skills
     : skills.filter(s => s.domain === activeDomain)
+
+  const filtered = useMemo(() => {
+    if (!search.trim()) return domainFiltered
+    const q = search.toLowerCase().trim()
+    return domainFiltered.filter(s => {
+      const description = locale === 'pt' ? s.descriptionPt : s.description
+      return s.name.toLowerCase().includes(q)
+        || description.toLowerCase().includes(q)
+        || s.tags.some(t => t.toLowerCase().includes(q))
+        || s.domain.toLowerCase().includes(q)
+    })
+  }, [domainFiltered, search, locale])
 
   return (
     <section id="skills" className="py-20 md:py-28 border-t border-border/50">
@@ -59,6 +73,26 @@ export function Skills() {
               {filtered.length} {t.skills.count_label}
             </span>
           </div>
+        </div>
+
+        {/* Search */}
+        <div className="relative mb-5">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+          <input
+            type="text"
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            placeholder={locale === 'pt' ? 'Pesquisar skills...' : 'Search skills...'}
+            className="w-full h-10 pl-9 pr-9 rounded-lg border border-border bg-muted/30 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:border-foreground/30 focus:bg-muted/50 transition-all duration-200"
+          />
+          {search && (
+            <button
+              onClick={() => setSearch('')}
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          )}
         </div>
 
         {/* Domain filter */}

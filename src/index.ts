@@ -84,10 +84,44 @@ function loadSkills(): Skill[] {
 
 async function main() {
   const skills = loadSkills()
+
   const server = new McpServer({
     name: 'runic',
     version: '1.0.0',
   })
+
+  server.tool(
+    'runic-prompt-engineer',
+    `Acts as the primary entry point for Runic. Analyzes the user's request, determines the best skill(s) to use, and returns enhanced context with the relevant skill content. Always call this first before any other skill.`,
+    { task: z.string().describe('The user task or request description') },
+    async ({ task }) => {
+      const lower = task.toLowerCase()
+      const keywords = lower.split(/\s+/)
+      const scored = skills.map(s => {
+        const desc = s.description.toLowerCase()
+        const name = s.name.toLowerCase()
+        let score = 0
+        for (const kw of keywords) {
+          if (desc.includes(kw)) score += 2
+          if (name.includes(kw)) score += 3
+          if (s.domain.includes(kw)) score += 1
+        }
+        return { ...s, score }
+      })
+      scored.sort((a, b) => b.score - a.score)
+      const top = scored.filter(s => s.score > 0).slice(0, 3)
+      const allRelevant = top.length > 0
+        ? top.map(s => `- **${s.name}** (${s.domain}): ${s.description}`).join('\n')
+        : 'No specific skill matched. Use runic-list to browse available skills, or describe your task in more detail.'
+
+      return {
+        content: [{
+          type: 'text' as const,
+          text: `## Prompt Engineering Analysis\n\n**Task:** ${task}\n\n**Recommended Skills:**\n${allRelevant}\n\n---\n### Enhanced Context\nUse the recommended skills above for execution. If multiple skills are relevant, chain them: start with the most specific skill, then use additional skills as needed.`,
+        }],
+      }
+    },
+  )
 
   for (const skill of skills) {
     server.tool(
@@ -105,7 +139,6 @@ async function main() {
     )
   }
 
-  // List all skills tool
   server.tool(
     'runic-list',
     'List all available Runic skills with their names, domains, and descriptions.',

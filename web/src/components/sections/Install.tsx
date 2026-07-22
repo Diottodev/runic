@@ -1,14 +1,11 @@
 import { useState } from 'react'
 import { CodeBlock } from '@/components/ui/code-block'
 import { cn } from '@/lib/utils'
-import { CheckCircle2, Terminal, Code2, Layers, Monitor, Cpu, Puzzle } from 'lucide-react'
+import { CheckCircle2, Terminal, Code2, Layers, Monitor, Cpu } from 'lucide-react'
 import { useLocale } from '@/contexts/locale-context'
 
-type InstallMethod = 'mcp' | 'plugin'
 type IDE = 'claude' | 'cursor' | 'windsurf' | 'vscode' | 'jetbrains'
-type PluginIDE = 'vscode' | 'jetbrains' | 'cursor'
 
-/* ── MCP config ── */
 const mcpIcons: Record<IDE, React.ReactNode> = {
   claude:     <Terminal className="h-4 w-4" />,
   cursor:     <Code2 className="h-4 w-4" />,
@@ -73,41 +70,6 @@ claude mcp list`,
 }`,
 }
 
-/* ── Plugin config ── */
-const pluginIcons: Record<PluginIDE, React.ReactNode> = {
-  vscode:    <Monitor className="h-4 w-4" />,
-  jetbrains: <Cpu className="h-4 w-4" />,
-  cursor:    <Code2 className="h-4 w-4" />,
-}
-
-const pluginLabels: Record<PluginIDE, string> = {
-  vscode:    'VS Code',
-  jetbrains: 'JetBrains',
-  cursor:    'Cursor',
-}
-
-const pluginCodes: Record<PluginIDE, string> = {
-  vscode: `# Install via CLI
-code --install-extension diottodev.runic-skills
-
-# Or open VS Code → Extensions (Ctrl+Shift+X)
-# Search: "Runic Skills"
-# Click Install`,
-  jetbrains: `# Open your JetBrains IDE (IntelliJ, WebStorm, etc.)
-# Settings → Plugins → Marketplace
-# Search: "Runic Skills" → Install → Restart IDE
-
-# Or install from disk (.zip):
-# Settings → Plugins → ⚙ → Install Plugin from Disk`,
-  cursor: `# Cursor uses VS Code extensions
-# Install via command palette (Ctrl+Shift+P):
-#   > Extensions: Install Extensions
-#   Search: "Runic Skills"
-
-# Or via CLI:
-cursor --install-extension diottodev.runic-skills`,
-}
-
 const quickStartExamples = [
   '"Review this function for security issues"',
   '"Debug this stack trace"',
@@ -116,20 +78,17 @@ const quickStartExamples = [
 ]
 
 export function Install() {
-  const [activeMethod, setActiveMethod] = useState<InstallMethod>('mcp')
   const [activeMCPIde, setActiveMCPIde] = useState<IDE>('claude')
-  const [activePluginIde, setActivePluginIde] = useState<PluginIDE>('vscode')
   const { t } = useLocale()
 
   const mcpIdes = Object.keys(mcpLabels) as IDE[]
-  const pluginIdes = Object.keys(pluginLabels) as PluginIDE[]
 
   return (
     <section id="install" className="py-20 md:py-28 border-t border-border/50">
       <div className="container max-w-6xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-start">
 
-          {/* Left: method + IDE selector + code */}
+          {/* Left: IDE selector + code */}
           <div>
             <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-highlight mb-3">{t.install.eyebrow}</p>
             <h2 className="font-display font-extrabold text-3xl md:text-[2.6rem] tracking-tight leading-[1.08] mb-2">
@@ -139,88 +98,34 @@ export function Install() {
               {t.install.subtitle}
             </p>
 
-            {/* Method toggle */}
-            <div className="flex gap-1 mb-5 p-1 rounded-lg border border-border bg-muted/30 w-fit">
-              {(['mcp', 'plugin'] as InstallMethod[]).map(m => (
+            {/* MCP IDE tabs */}
+            <div className="flex gap-1.5 flex-wrap mb-4">
+              {mcpIdes.map(id => (
                 <button
-                  key={m}
-                  onClick={() => setActiveMethod(m)}
+                  key={id}
+                  onClick={() => setActiveMCPIde(id)}
                   className={cn(
-                    'flex items-center gap-1.5 px-3.5 py-1.5 rounded-md text-xs font-semibold transition-all duration-200',
-                    activeMethod === m
-                      ? 'bg-foreground text-background shadow-sm'
-                      : 'text-muted-foreground hover:text-foreground'
+                    'flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 border',
+                    activeMCPIde === id
+                      ? 'bg-foreground text-background border-foreground'
+                      : 'border-border text-muted-foreground hover:text-foreground hover:border-foreground/30'
                   )}
                 >
-                  {m === 'mcp'
-                    ? <><Terminal className="h-3.5 w-3.5" />{t.install.method_mcp}</>
-                    : <><Puzzle className="h-3.5 w-3.5" />{t.install.method_plugin}</>
-                  }
+                  {mcpIcons[id]}
+                  {mcpLabels[id]}
                 </button>
               ))}
             </div>
 
-            {activeMethod === 'mcp' ? (
-              <>
-                {/* MCP IDE tabs */}
-                <div className="flex gap-1.5 flex-wrap mb-4">
-                  {mcpIdes.map(id => (
-                    <button
-                      key={id}
-                      onClick={() => setActiveMCPIde(id)}
-                      className={cn(
-                        'flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 border',
-                        activeMCPIde === id
-                          ? 'bg-foreground text-background border-foreground'
-                          : 'border-border text-muted-foreground hover:text-foreground hover:border-foreground/30'
-                      )}
-                    >
-                      {mcpIcons[id]}
-                      {mcpLabels[id]}
-                    </button>
-                  ))}
-                </div>
+            <CodeBlock
+              code={mcpCodes[activeMCPIde]}
+              filename={mcpFilenames[activeMCPIde]}
+            />
 
-                <CodeBlock
-                  code={mcpCodes[activeMCPIde]}
-                  filename={mcpFilenames[activeMCPIde]}
-                />
-
-                {t.install.ide_notes[activeMCPIde as keyof typeof t.install.ide_notes] && (
-                  <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
-                    {t.install.ide_notes[activeMCPIde as keyof typeof t.install.ide_notes]}
-                  </p>
-                )}
-              </>
-            ) : (
-              <>
-                {/* Plugin IDE tabs */}
-                <div className="flex gap-1.5 flex-wrap mb-4">
-                  {pluginIdes.map(id => (
-                    <button
-                      key={id}
-                      onClick={() => setActivePluginIde(id)}
-                      className={cn(
-                        'flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 border',
-                        activePluginIde === id
-                          ? 'bg-foreground text-background border-foreground'
-                          : 'border-border text-muted-foreground hover:text-foreground hover:border-foreground/30'
-                      )}
-                    >
-                      {pluginIcons[id]}
-                      {pluginLabels[id]}
-                    </button>
-                  ))}
-                </div>
-
-                <CodeBlock code={pluginCodes[activePluginIde]} />
-
-                {t.install.plugin_notes[activePluginIde as keyof typeof t.install.plugin_notes] && (
-                  <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
-                    {t.install.plugin_notes[activePluginIde as keyof typeof t.install.plugin_notes]}
-                  </p>
-                )}
-              </>
+            {t.install.ide_notes[activeMCPIde as keyof typeof t.install.ide_notes] && (
+              <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
+                {t.install.ide_notes[activeMCPIde as keyof typeof t.install.ide_notes]}
+              </p>
             )}
 
             {/* Node requirement */}

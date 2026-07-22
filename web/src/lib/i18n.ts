@@ -36,9 +36,9 @@ export const translations = {
             'Skills go beyond surface answers. Debug finds root cause. Review finds real bugs. Docs explain the why, not the what.',
         },
         {
-          title: 'Multi-IDE — MCP & Plugin',
+          title: 'Multi-IDE — MCP',
           description:
-            'Install via MCP or as a native plugin across Claude Code, Cursor, Windsurf, VS Code, and JetBrains. One install, five IDEs.',
+            'Install via MCP across Claude Code, Cursor, Windsurf, VS Code, and JetBrains. One install, five IDEs.',
         },
         {
           title: 'AI & Dev focused',
@@ -60,9 +60,7 @@ export const translations = {
     install: {
       eyebrow: 'Installation',
       title: 'Works with your IDE',
-      subtitle: 'Install via MCP protocol or as a native IDE plugin — no repo clone, no build step.',
-      method_mcp: 'via MCP',
-      method_plugin: 'via Plugin',
+      subtitle: 'Install via MCP protocol — no repo clone, no build step.',
       why_npx: 'Why npx?',
       quick_start: 'Quick start',
       quick_start_subtitle: 'After installing, try asking your AI:',
@@ -81,11 +79,6 @@ export const translations = {
         vscode: 'Requires VS Code with Copilot, Continue, or another MCP-compatible extension.',
         jetbrains: 'Requires JetBrains AI Assistant (2024+). Open Settings → Tools → AI Assistant → MCP Servers.',
       },
-      plugin_notes: {
-        vscode: 'Works in VS Code, Cursor, and any VS Code-compatible editor. Restart your editor after install.',
-        jetbrains: 'Compatible with IntelliJ IDEA, WebStorm, PyCharm, GoLand, and all JetBrains IDEs.',
-        cursor: 'Cursor is VS Code-based — the Runic Skills extension works natively in both.',
-      },
       npx_features: [
         {
           icon: '⚡',
@@ -94,8 +87,8 @@ export const translations = {
         },
         {
           icon: '🔌',
-          title: 'MCP + Plugin support',
-          description: 'Works via MCP protocol or as a native IDE plugin. Pick your preferred method.',
+          title: 'MCP native',
+          description: 'Works via MCP protocol across all major IDEs. Pick your preferred IDE.',
         },
         {
           icon: '🎯',
@@ -157,9 +150,9 @@ export const translations = {
             'As skills vão além das respostas superficiais. Debug encontra a causa raiz. Review encontra bugs reais. Docs explicam o porquê.',
         },
         {
-          title: 'Multi-IDE — MCP & Plugin',
+          title: 'Multi-IDE — MCP',
           description:
-            'Instale via MCP ou como plugin nativo no Claude Code, Cursor, Windsurf, VS Code e JetBrains. Uma instalação, cinco IDEs.',
+            'Instale via MCP no Claude Code, Cursor, Windsurf, VS Code e JetBrains. Uma instalação, cinco IDEs.',
         },
         {
           title: 'Focado em IA & Dev',
@@ -181,9 +174,7 @@ export const translations = {
     install: {
       eyebrow: 'Instalação',
       title: 'Funciona com sua IDE',
-      subtitle: 'Instale via protocolo MCP ou como plugin nativo da IDE — sem clonar repo, sem build.',
-      method_mcp: 'via MCP',
-      method_plugin: 'via Plugin',
+      subtitle: 'Instale via protocolo MCP — sem clonar repo, sem build.',
       why_npx: 'Por que npx?',
       quick_start: 'Início rápido',
       quick_start_subtitle: 'Após instalar, tente perguntar à sua IA:',
@@ -202,11 +193,6 @@ export const translations = {
         vscode: 'Requer VS Code com Copilot, Continue ou outra extensão compatível com MCP.',
         jetbrains: 'Requer JetBrains AI Assistant (2024+). Abra Configurações → Ferramentas → AI Assistant → MCP Servers.',
       },
-      plugin_notes: {
-        vscode: 'Funciona no VS Code, Cursor e qualquer editor baseado em VS Code. Reinicie o editor após instalar.',
-        jetbrains: 'Compatível com IntelliJ IDEA, WebStorm, PyCharm, GoLand e todas as IDEs JetBrains.',
-        cursor: 'O Cursor é baseado em VS Code — a extensão Runic Skills funciona nativamente em ambos.',
-      },
       npx_features: [
         {
           icon: '⚡',
@@ -215,8 +201,8 @@ export const translations = {
         },
         {
           icon: '🔌',
-          title: 'MCP + Plugin',
-          description: 'Funciona via protocolo MCP ou como plugin nativo. Escolha o método que preferir.',
+          title: 'MCP nativo',
+          description: 'Funciona via protocolo MCP em todas as principais IDEs. Escolha sua IDE preferida.',
         },
         {
           icon: '🎯',
