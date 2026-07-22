@@ -18,7 +18,6 @@ const svg = readFileSync(join(ROOT, 'assets/icon.svg'))
 const sizes = [
   { size: 16,  out: 'web/public/favicon-16.png' },
   { size: 32,  out: 'web/public/favicon-32.png' },
-  { size: 128, out: 'packages/vscode-extension/icon.png' },
   { size: 256, out: 'assets/icon-256.png' },
   { size: 512, out: 'assets/icon-512.png' },
 ]
