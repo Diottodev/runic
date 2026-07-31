@@ -12,7 +12,7 @@ export const translations = {
       title1: 'AI & Dev skills',
       title2: 'built for developers',
       subtitle:
-        '302 battle-tested skills across 17 domains. Install in seconds via your IDE — code review, debugging, LLM cost optimization, security testing, and more.',
+        '303 battle-tested skills across 17 domains. Install in seconds via your IDE — code review, debugging, LLM cost optimization, security testing, and more.',
       cta_install: 'Install now',
       cta_browse: 'Browse skills',
       stat_domains: 'Domains',
@@ -43,7 +43,7 @@ export const translations = {
         {
           title: 'AI & Dev focused',
           description:
-            'Zero bloat. 302 skills across 17 domains for engineers, product, marketing, and executive teams. Production-grade, no fluff.',
+            'Zero bloat. 303 skills across 17 domains for engineers, product, marketing, and executive teams. Production-grade, no fluff.',
         },
         {
           title: 'Proactive triggers',
@@ -109,8 +109,32 @@ export const translations = {
       all: 'All',
       count_label: 'skills',
     },
+    archify: {
+      eyebrow: 'New skill',
+      title: 'Archify — diagrams that ship',
+      subtitle: 'Turn plain-language requirements or Mermaid input into polished, validated architecture and workflow diagrams — standalone HTML with inline SVG, dark/light themes, and PNG/WebM export. The render below is generated live by Archify.',
+      demo_caption: 'Live Archify render — "Sample Web App" (3-tier SaaS on AWS)',
+      open_full: 'Open full demo',
+      points: [
+        {
+          icon: '🎨',
+          title: 'Polished output',
+          description: 'Dark/light themes, signal-flow presets, trace motion, and a guided multi-view canvas.',
+        },
+        {
+          icon: '✅',
+          title: 'Validated geometry',
+          description: 'Orthogonal routing, crossings, and label-clearance checks pass before anything ships.',
+        },
+        {
+          icon: '🗂️',
+          title: 'Five diagram types',
+          description: 'Architecture, workflow, sequence, data-flow, and lifecycle/state diagrams from one spec.',
+        },
+      ],
+    },
     footer: {
-      tagline: 'Runic — 302 skills across 17 domains for teams who ship.',
+      tagline: 'Runic — 303 skills across 17 domains for teams who ship.',
       made_with: 'MIT License',
     },
   },
@@ -126,7 +150,7 @@ export const translations = {
       title1: 'Skills de IA & Dev',
       title2: 'feitas para desenvolvedores',
       subtitle:
-        '302 skills testadas em batalha em 17 domínios. Instale em segundos via sua IDE — code review, debug, otimização de LLM, testes de segurança e muito mais.',
+        '303 skills testadas em batalha em 17 domínios. Instale em segundos via sua IDE — code review, debug, otimização de LLM, testes de segurança e muito mais.',
       cta_install: 'Instalar agora',
       cta_browse: 'Ver skills',
       stat_domains: 'Domínios',
@@ -157,7 +181,7 @@ export const translations = {
         {
           title: 'Focado em IA & Dev',
           description:
-            'Zero inchaço. 302 skills em 17 domínios para engenheiros, produto, marketing e executivos. Nível produção, sem enrolação.',
+            'Zero inchaço. 303 skills em 17 domínios para engenheiros, produto, marketing e executivos. Nível produção, sem enrolação.',
         },
         {
           title: 'Gatilhos proativos',
@@ -223,8 +247,32 @@ export const translations = {
       all: 'Todos',
       count_label: 'skills',
     },
+    archify: {
+      eyebrow: 'Nova skill',
+      title: 'Archify — diagramas que vão para produção',
+      subtitle: 'Transforme requisitos em linguagem natural ou input Mermaid em diagramas de arquitetura e fluxo polidos e validados — HTML autônomo com SVG inline, temas claro/escuro e exportação PNG/WebM. O render abaixo é gerado ao vivo pelo Archify.',
+      demo_caption: 'Render ao vivo do Archify — "Sample Web App" (SaaS 3 camadas na AWS)',
+      open_full: 'Abrir demo completa',
+      points: [
+        {
+          icon: '🎨',
+          title: 'Saída refinada',
+          description: 'Temas claro/escuro, presets signal-flow, animação trace e canvas guiado com múltiplas visões.',
+        },
+        {
+          icon: '✅',
+          title: 'Geometria validada',
+          description: 'Rotas ortogonais, cruzamentos e folgas de rótulo são verificados antes de qualquer entrega.',
+        },
+        {
+          icon: '🗂️',
+          title: 'Cinco tipos de diagrama',
+          description: 'Arquitetura, workflow, sequência, data-flow e lifecycle/estado a partir de uma única spec.',
+        },
+      ],
+    },
     footer: {
-      tagline: 'Runic — 302 skills em 17 domínios para times que entregam.',
+      tagline: 'Runic — 303 skills em 17 domínios para times que entregam.',
       made_with: 'Licença MIT',
     },
   },

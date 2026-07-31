@@ -28,7 +28,7 @@ export interface Skill {
 }
 
 export const domains: { id: Domain; label: string; count: number; color: string }[] = [
-  { id: 'engineering',          label: 'Engineering',         count: 37,  color: 'cyan' },
+  { id: 'engineering',          label: 'Engineering',         count: 38,  color: 'cyan' },
   { id: 'engineering-team',     label: 'Engineering Team',    count: 36,  color: 'blue' },
   { id: 'ai-research',          label: 'AI Research',         count: 2,   color: 'violet' },
   { id: 'ai-security',          label: 'AI Security',         count: 1,   color: 'rose' },
@@ -121,6 +121,15 @@ export const skills: Skill[] = [
     tags: ['system-prompt', 'few-shot', 'CoT'],
     domain: 'engineering',
     icon: '✍️',
+    isNew: true,
+  },
+  {
+    name: 'archify',
+    description: 'Turns plain-language requirements or Mermaid input into polished, validated architecture and workflow diagrams — standalone HTML with inline SVG, dark/light themes, and PNG/WebM export.',
+    descriptionPt: 'Transforma requisitos em linguagem natural ou input Mermaid em diagramas de arquitetura e fluxo polidos e validados — HTML autônomo com SVG inline, temas claro/escuro e exportação PNG/WebM.',
+    tags: ['architecture', 'diagram', 'workflow', 'SVG'],
+    domain: 'engineering',
+    icon: '📐',
     isNew: true,
   },
   {
