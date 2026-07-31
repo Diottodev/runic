@@ -124,7 +124,7 @@ export const skills: Skill[] = [
     isNew: true,
   },
   {
-    name: 'archify',
+    name: 'runedraw',
     description: 'Turns plain-language requirements or Mermaid input into polished, validated architecture and workflow diagrams — standalone HTML with inline SVG, dark/light themes, and PNG/WebM export.',
     descriptionPt: 'Transforma requisitos em linguagem natural ou input Mermaid em diagramas de arquitetura e fluxo polidos e validados — HTML autônomo com SVG inline, temas claro/escuro e exportação PNG/WebM.',
     tags: ['architecture', 'diagram', 'workflow', 'SVG'],

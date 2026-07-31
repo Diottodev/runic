@@ -109,11 +109,11 @@ export const translations = {
       all: 'All',
       count_label: 'skills',
     },
-    archify: {
+    runedraw: {
       eyebrow: 'New skill',
-      title: 'Archify — diagrams that ship',
-      subtitle: 'Turn plain-language requirements or Mermaid input into polished, validated architecture and workflow diagrams — standalone HTML with inline SVG, dark/light themes, and PNG/WebM export. The render below is generated live by Archify.',
-      demo_caption: 'Live Archify render — "Sample Web App" (3-tier SaaS on AWS)',
+      title: 'RuneDraw — diagrams that ship',
+      subtitle: 'Turn plain-language requirements or Mermaid input into polished, validated architecture and workflow diagrams — standalone HTML with inline SVG, dark/light themes, and PNG/WebM export. The render below is generated live by RuneDraw.',
+      demo_caption: 'Live RuneDraw render — "Sample Web App" (3-tier SaaS on AWS)',
       open_full: 'Open full demo',
       points: [
         {
@@ -247,11 +247,11 @@ export const translations = {
       all: 'Todos',
       count_label: 'skills',
     },
-    archify: {
+    runedraw: {
       eyebrow: 'Nova skill',
-      title: 'Archify — diagramas que vão para produção',
-      subtitle: 'Transforme requisitos em linguagem natural ou input Mermaid em diagramas de arquitetura e fluxo polidos e validados — HTML autônomo com SVG inline, temas claro/escuro e exportação PNG/WebM. O render abaixo é gerado ao vivo pelo Archify.',
-      demo_caption: 'Render ao vivo do Archify — "Sample Web App" (SaaS 3 camadas na AWS)',
+      title: 'RuneDraw — diagramas que vão para produção',
+      subtitle: 'Transforme requisitos em linguagem natural ou input Mermaid em diagramas de arquitetura e fluxo polidos e validados — HTML autônomo com SVG inline, temas claro/escuro e exportação PNG/WebM. O render abaixo é gerado ao vivo pelo RuneDraw.',
+      demo_caption: 'Render ao vivo do RuneDraw — "Sample Web App" (SaaS 3 camadas na AWS)',
       open_full: 'Abrir demo completa',
       points: [
         {

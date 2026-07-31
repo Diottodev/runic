@@ -1,7 +1,7 @@
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import { Hero } from '@/components/sections/Hero'
-import { ArchifyShowcase } from '@/components/sections/ArchifyShowcase'
+import { RuneDrawShowcase } from '@/components/sections/RuneDrawShowcase'
 import { Skills } from '@/components/sections/Skills'
 import { Install } from '@/components/sections/Install'
 import { Features } from '@/components/sections/Features'
@@ -16,7 +16,7 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
-        <ArchifyShowcase />
+        <RuneDrawShowcase />
         <Features />
         <Skills />
         <Install />

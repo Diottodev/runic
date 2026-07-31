@@ -134,12 +134,12 @@ function compactList(skills: Skill[], limitDomain?: string): string {
   return lines.join('\n').trim()
 }
 
-const ARCHIFY_DIR = join(ROOT, 'engineering', 'archify')
-const ARCHIFY_CLI = join(ARCHIFY_DIR, 'bin', 'archify.mjs')
+const RUNEDRAW_DIR = join(ROOT, 'engineering', 'runedraw')
+const RUNEDRAW_CLI = join(RUNEDRAW_DIR, 'bin', 'runedraw.mjs')
 
 const execFileAsync = promisify(execFile)
 
-function parseArchifyReceipt(raw: string): { ok?: boolean; errors?: unknown[] } {
+function parseRuneDrawReceipt(raw: string): { ok?: boolean; errors?: unknown[] } {
   const start = raw.indexOf('{')
   if (start === -1) return {}
   try {
@@ -149,13 +149,13 @@ function parseArchifyReceipt(raw: string): { ok?: boolean; errors?: unknown[] } 
   }
 }
 
-async function runArchify(args: string[], timeoutMs = 120000): Promise<{ stdout: string; stderr: string }> {
-  if (!existsSync(ARCHIFY_CLI)) {
+async function runRuneDraw(args: string[], timeoutMs = 120000): Promise<{ stdout: string; stderr: string }> {
+  if (!existsSync(RUNEDRAW_CLI)) {
     throw new Error(
-      `Archify renderer not found at ${ARCHIFY_DIR}. Reinstall @diottodev/runic to get the bundled archify skill.`
+      `RuneDraw renderer not found at ${RUNEDRAW_DIR}. Reinstall @diottodev/runic to get the bundled runedraw skill.`
     )
   }
-  const { stdout, stderr } = await execFileAsync(process.execPath, [ARCHIFY_CLI, ...args], {
+  const { stdout, stderr } = await execFileAsync(process.execPath, [RUNEDRAW_CLI, ...args], {
     timeout: timeoutMs,
     maxBuffer: 16 * 1024 * 1024,
     windowsHide: true,
@@ -282,15 +282,15 @@ async function main() {
     },
   )
 
-  /* ─── Archify renderer tools ─── */
+  /* ─── RuneDraw renderer tools ─── */
 
   server.tool(
-    'archify',
-    'Generate a polished, validated, self-contained HTML diagram (architecture, workflow, sequence, dataflow, or lifecycle) from a typed JSON spec. Writes <output>.html plus a frozen <output>.json snapshot and returns the machine receipts. Combine with the bundled archify skill (runic-get-skill name: "archify") for authoring guidance.',
+    'runedraw',
+    'Generate a polished, validated, self-contained HTML diagram (architecture, workflow, sequence, dataflow, or lifecycle) from a typed JSON spec. Writes <output>.html plus a frozen <output>.json snapshot and returns the machine receipts. Combine with the bundled runedraw skill (runic-get-skill name: "runedraw") for authoring guidance.',
     {
       type: z.enum(DIAGRAM_TYPES).describe('Diagram type: architecture, workflow, sequence, dataflow, lifecycle'),
-      spec: z.string().describe('Archify typed JSON IR as a string. See the archify skill schemas/ folder for field shape.'),
-      output: z.string().optional().describe('Absolute output HTML path (defaults to ./archify-<type>.html in the current directory)'),
+      spec: z.string().describe('RuneDraw typed JSON IR as a string. See the runedraw skill schemas/ folder for field shape.'),
+      output: z.string().optional().describe('Absolute output HTML path (defaults to ./runedraw-<type>.html in the current directory)'),
       quality: z.enum(['standard', 'showcase']).optional().describe('Quality profile (default showcase)'),
     },
     async ({ type, spec, output, quality }) => {
@@ -301,19 +301,19 @@ async function main() {
         parsed = JSON.parse(spec)
       } catch {
         return {
-          content: [{ type: 'text' as const, text: 'Archify: `spec` is not valid JSON. Fix the JSON and retry.' }],
+          content: [{ type: 'text' as const, text: 'RuneDraw: `spec` is not valid JSON. Fix the JSON and retry.' }],
         }
       }
       if (typeof parsed !== 'object' || parsed === null) {
-        return { content: [{ type: 'text' as const, text: 'Archify: `spec` must be a JSON object.' }] }
+        return { content: [{ type: 'text' as const, text: 'RuneDraw: `spec` must be a JSON object.' }] }
       }
 
       const outDir = output ? dirname(resolve(output)) : process.cwd()
       const outFile = output
         ? resolve(output)
-        : resolve(process.cwd(), `archify-${type}.html`)
+        : resolve(process.cwd(), `runedraw-${type}.html`)
       if (!/\.html$/i.test(outFile)) {
-        return { content: [{ type: 'text' as const, text: 'Archify: output path must end in .html' }] }
+        return { content: [{ type: 'text' as const, text: 'RuneDraw: output path must end in .html' }] }
       }
       const specPath = outFile.replace(/\.html$/i, '.json')
 
@@ -321,25 +321,25 @@ async function main() {
         mkdirSync(outDir, { recursive: true })
         writeFileSync(specPath, JSON.stringify(parsed, null, 2), 'utf8')
 
-        const validate = await runArchify(['validate', type, specPath, '--quality', q, '--json'])
+        const validate = await runRuneDraw(['validate', type, specPath, '--quality', q, '--json'])
         const validateOut = validate.stdout.trim() || validate.stderr.trim()
-        const receipt = parseArchifyReceipt(validateOut)
+        const receipt = parseRuneDrawReceipt(validateOut)
         const failed = receipt.ok === false || (Array.isArray(receipt.errors) && receipt.errors.length > 0)
         if (failed) {
           return {
             content: [{
               type: 'text' as const,
-              text: `Archify validation FAILED (${type}). Repair only the diagnosed subject using its supportedFixes, then retry.\n\n${validateOut}`,
+              text: `RuneDraw validation FAILED (${type}). Repair only the diagnosed subject using its supportedFixes, then retry.\n\n${validateOut}`,
             }],
           }
         }
 
-        const deliver = await runArchify(['deliver', type, specPath, outFile, '--quality', q, '--json'])
+        const deliver = await runRuneDraw(['deliver', type, specPath, outFile, '--quality', q, '--json'])
         return {
           content: [{
             type: 'text' as const,
             text: [
-              `Archify delivered: ${outFile}`,
+              `RuneDraw delivered: ${outFile}`,
               `Spec snapshot: ${specPath}`,
               ``,
               `--- validate receipt ---`,
@@ -355,7 +355,7 @@ async function main() {
         return {
           content: [{
             type: 'text' as const,
-            text: `Archify renderer error: ${msg}\n\nArchify validation and delivery run inside the @diottodev/runic package via engineering/archify/bin/archify.mjs.`,
+            text: `RuneDraw renderer error: ${msg}\n\nRuneDraw validation and delivery run inside the @diottodev/runic package via engineering/runedraw/bin/runedraw.mjs.`,
           }],
         }
       }
@@ -363,25 +363,25 @@ async function main() {
   )
 
   server.tool(
-    'archify-guide',
-    'Ask the Archify scenario guide which diagram type fits a described flow (e.g. "Show an API request with Redis cache miss"). Returns the recommended type and authoring hints.',
+    'runedraw-guide',
+    'Ask the RuneDraw scenario guide which diagram type fits a described flow (e.g. "Show an API request with Redis cache miss"). Returns the recommended type and authoring hints.',
     { scenario: z.string().describe('Natural-language description of the flow to visualize') },
     async ({ scenario }) => {
       try {
-        const { stdout, stderr } = await runArchify(['guide', scenario, '--json'])
+        const { stdout, stderr } = await runRuneDraw(['guide', scenario, '--json'])
         return {
           content: [{ type: 'text' as const, text: (stdout.trim() || stderr.trim()) }],
         }
       } catch (err) {
         const msg = err instanceof Error ? err.message : String(err)
-        return { content: [{ type: 'text' as const, text: `Archify guide error: ${msg}` }] }
+        return { content: [{ type: 'text' as const, text: `RuneDraw guide error: ${msg}` }] }
       }
     },
   )
 
   server.tool(
     'runic-doctor',
-    'Run the Runic self-check: verifies skill loading and that the bundled Archify renderer is healthy.',
+    'Run the Runic self-check: verifies skill loading and that the bundled RuneDraw renderer is healthy.',
     {},
     async () => {
       const lines: string[] = []
@@ -390,16 +390,16 @@ async function main() {
         const count = skills.filter(s => s.domain === domain).length
         lines.push(`[ok] ${domain}: ${count} skills`)
       }
-      if (existsSync(ARCHIFY_CLI)) {
+      if (existsSync(RUNEDRAW_CLI)) {
         try {
-          const { stdout, stderr } = await runArchify(['doctor'])
-          lines.push(`[ok] archify renderer present at ${ARCHIFY_DIR}`)
+          const { stdout, stderr } = await runRuneDraw(['doctor'])
+          lines.push(`[ok] runedraw renderer present at ${RUNEDRAW_DIR}`)
           lines.push((stdout.trim() || stderr.trim()).split('\n').slice(0, 4).join('\n'))
         } catch (err) {
-          lines.push(`[warn] archify doctor failed: ${err instanceof Error ? err.message : String(err)}`)
+          lines.push(`[warn] runedraw doctor failed: ${err instanceof Error ? err.message : String(err)}`)
         }
       } else {
-        lines.push(`[warn] archify renderer not bundled (expected at ${ARCHIFY_DIR})`)
+        lines.push(`[warn] runedraw renderer not bundled (expected at ${RUNEDRAW_DIR})`)
       }
       return { content: [{ type: 'text' as const, text: lines.join('\n') }] }
     },
